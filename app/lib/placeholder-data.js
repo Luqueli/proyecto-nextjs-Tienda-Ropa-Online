@@ -10,46 +10,46 @@ const users = [
 
 const categories = [
     {
-        id : '1',
+        id : 1,
         name : 'Fútbol'
     },
     {
-        id : '2',
+        id : 2,
         name : 'Lifestyle'
     },
     {
-        id : '3',
+        id : 3,
         name : 'Básquet'
     },
     {
-        id : '4',
+        id : 4,
         name : 'Crossfit'
     },
     {
-        id : '5',
+        id : 5,
         name : 'Ojotas'
     }
 ]
 
 const brands = [
     {
-        id : '1',
+        id : 1,
         name : 'Jordan'
     },
     {
-        id : '2',
+        id : 2,
         name : 'Nike'
     },
     {
-        id : '3',
+        id : 3,
         name : 'Adidas'
     },
     {
-        id : '4',
+        id : 4,
         name : 'New Balance'
     },
     {
-        id : '5',
+        id : 5,
         name : 'Reebok'
     },
 ]
@@ -59,7 +59,7 @@ const products = [
     {
         id : '1',
         name :'Air Jordan 3 Palomino',
-        description: '',
+        description: 'Zapatillas Jordan 3 de cuero',
         brand :  brands[0],
         category : categories[1],
         price : 400000,
@@ -69,7 +69,7 @@ const products = [
     {
         id : '2',
         name : 'Air Jordan 4 Retro Black Cat',
-        description : '',
+        description : 'Zapatillas Jordan 4 full black',
         brand : brands[0],
         category : categories[1],
         price : 400000,
@@ -79,7 +79,7 @@ const products = [
     {
         id : '3',
         name : 'Air Jordan 1 Retro High Chicago  ',
-        description : '',
+        description : 'Gema para los sneakerheads',
         brand : brands[0],
         category : categories[1],
         price : 350000,
@@ -89,7 +89,7 @@ const products = [
     {
         id : '4',
         name : 'Air Jordan 4 Retro Kaws',
-        description : '',
+        description : 'Zapatillas Jordan 4 gamuza.',
         brand : brands[0],
         category : categories[1],
         price : 500000,
@@ -99,7 +99,7 @@ const products = [
     {
         id : '5',
         name : 'Air Jordan Retro 11 High Concord',
-        description : '',
+        description : 'Air Jordan 11 blancas y negras.',
         brand : brands[0],
         category : categories[1],
         price : 700000,
@@ -109,7 +109,7 @@ const products = [
     {
         id : '6',
         name : 'Botines Nike Tiempo Legend 9',
-        description : '',
+        description : 'Botines nike para cancha 11',
         brand : brands[1],
         category : categories[0],
         price : 150000,
@@ -119,7 +119,7 @@ const products = [
     {
         id : '7',
         name : 'Botines Nike Mercurial Superfly 9 Elite',
-        description : '',
+        description : 'Botines llamativos.',
         brand : brands[1],
         category : categories[0],
         price : 10000000,
@@ -129,7 +129,7 @@ const products = [
     {
         id : '8',
         name : 'Botines Adidas Predator Elites',
-        description : '',
+        description : 'Botines de fútbol cancha 11.',
         brand : brands[2],
         category : categories[0],
         price : 799999,
@@ -139,7 +139,7 @@ const products = [
     {
         id : '9',
         name : 'Botines Adidas Nemezis 19.2',
-        description : '',
+        description : 'Botines de fútbol cancha 11.',
         brand : brands[2],
         category : categories[0],
         price : 9999999,
@@ -149,7 +149,7 @@ const products = [
     {
         id : '10',
         name : 'Botines Adidas Copa 20.3',
-        description : '',
+        description : 'Botines de fútbol cancha 11.',
         brand : brands[2],
         category : categories[0],
         price : 9999999,
@@ -159,7 +159,7 @@ const products = [
     {
         id : '11',
         name : 'Nike Kobe 8 Black History Moth',
-        description : '',
+        description : 'Zapatillas de basket.',
         brand : brands[1],
         category : categories[2],
         price : 9999999,
@@ -169,7 +169,7 @@ const products = [
     {
         id : '12',
         name : 'Nike Lebron 11 Low Sprite',
-        description : '',
+        description : 'Las mejores zapatillas de basket',
         brand : brands[1],
         category : categories[2],
         price : 1200000,
@@ -179,7 +179,7 @@ const products = [
     {
         id : '13',
         name : 'Nike Kevin Durant 7 What the KD',
-        description : '',
+        description : 'Zapatillas de basket.',
         brand : brands[1],
         category : categories[2],
         price : 1200000,
@@ -189,7 +189,7 @@ const products = [
     {
         id : '14',
         name : 'Nike Basketball GT Run',
-        description : '',
+        description : 'Zapatillas de basket',
         brand : brands[3],
         category : categories[1],
         price : 300000,
@@ -199,7 +199,7 @@ const products = [
     {
         id : '15',
         name : 'Reebok Nano X',
-        description : '',
+        description : 'Zapatillas para crossfit.',
         brand : brands[4],
         category : categories[3],
         price : 499999,
@@ -209,7 +209,7 @@ const products = [
     {
         id : '16',
         name : 'Reebok Nano X3 Gum Bottoms',
-        description : '',
+        description : 'Zapatillas para crossfit.',
         brand : brands[4],
         category : categories[3],
         price : 325000,
@@ -219,7 +219,7 @@ const products = [
     {
         id : '17',
         name : 'Nike Metcon 9 AMP',
-        description : '',
+        description : 'Zapatillas para crossfit.',
         brand : brands[1],
         category : categories[3],
         price : 750999,
@@ -229,7 +229,7 @@ const products = [
     {
         id : '18',
         name : 'Adidas Adilette Slides',
-        description : '',
+        description : 'Ojotas Adidas',
         brand : brands[2],
         category : categories[4],
         price : 250000,
@@ -239,7 +239,7 @@ const products = [
     {
         id : '19',
         name : 'Nike More Uptempo Slides',
-        description : '',
+        description : 'Slides Nike cómodas',
         brand : brands[1],
         category : categories[4],
         price : 250000,
@@ -249,21 +249,18 @@ const products = [
     {
         id : '20',
         name : 'Adidas Yeezy Slides',
-        description : '',
+        description : 'Ojotas caras de Kanye West',
         brand : brands[2],
         category : categories[4],
         price : 199999,
         sizes : [6.5,7.5,9,10.5],
         images : 'https://acdn.mitiendanube.com/stores/001/240/717/products/adidas_yeezyslide-21-52d8db48aa3de2510416928962763768-640-0.png'
     },
+];
 
-
-
-
-
-
-
-
-
-
-]
+module.exports = {
+    users,
+    categories,
+    brands,
+    products,
+};
