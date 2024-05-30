@@ -7,13 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "node -r dotenv/config ./scripts/seed.js" 
+    "seed": "node -r dotenv/config ./scripts/seed.js"
   },
   "dependencies": {
     "@vercel/postgres": "^0.8.0",
+    "clsx": "^2.1.1",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",
