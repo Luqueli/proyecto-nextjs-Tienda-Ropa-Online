@@ -109,7 +109,7 @@ async function seedBrands(client){
     
         return {
           createTable,
-          categories: insertedBrands,
+          brands: insertedBrands,
         };
     } catch (error) {
         console.error('Error seeding brands:', error);
@@ -126,11 +126,13 @@ async function seedProducts(client){
             id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             description VARCHAR(255),
-            brand INTEGER REFERENCES brands(id),
-            category INTEGER REFERENCES categories(id),
+            brand_name VARCHAR(255),
+            brand_id INTEGER REFERENCES brands(id),
+            category_id INTEGER REFERENCES categories(id),
+            category_name VARCHAR(255),
             price INT NOT NULL,
             sizes FLOAT[],
-            images TEXT[]
+            images TEXT
           );
         `;
     
@@ -140,14 +142,17 @@ async function seedProducts(client){
         const insertedProducts= await Promise.all(
           products.map(async (product) => {
             return client.sql`
-            INSERT INTO products (name,description,brand,category,price,sizes)
+            INSERT INTO products (name,description,brand_name,brand_id,category_id,category_name,price,sizes,images)
             VALUES ( 
               ${product.name},
               ${product.description},
-              ${product.brand.id},
-              ${product.category.id},
+              ${product.brandname},
+              ${product.brandid},
+              ${product.categoryid},
+              ${product.categoryname},
               ${product.price},
-              ${product.sizes}
+              ${product.sizes},
+              ${product.images}
             );
           `;
           }),
@@ -157,7 +162,7 @@ async function seedProducts(client){
     
         return {
           createTable,
-          categories: insertedProducts,
+          products: insertedProducts,
         };
     } catch (error) {
         console.error('Error seeding products:', error);

@@ -10,12 +10,13 @@ export type Product = {
     id : string,
     name: string,
     decription: string,
-    brand : string,
-    category: Category,
+    brandname : string,
+    brandid: number,
+    categoryid: number,
+    categoryname : string,
     price : number,
     sizes : number[],
-    images : string[]
-    
+    images : string
 }
 
 export type Category = {
