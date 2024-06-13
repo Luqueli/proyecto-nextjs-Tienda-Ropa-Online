@@ -6,19 +6,21 @@ import { redirect } from 'next/navigation';
 
 const FormSchema = z.object({
     id : z.string(),
+
     productName: z.string({
         invalid_type_error: 'Seleccionar un nombre.',
     }),
+
+    price: z.coerce.
+    number()
+    .gt(0, { message: 'Ingresar una cantidad mayor a 0 .' }),
+
     brandName: z.string({
         invalid_type_error: 'Seleccionar una marca.',
     }),
     categoryName : z.string({
         invalid_type_error: 'Seleccionar una categoría',
     }),
-    price: z.coerce.
-        number()
-        .gt(0, { message: 'Ingresar una cantidad mayor a 0 .' }),
-    
     description : z.string({
         invalid_type_error: 'Poner una descripción.',
     }),
@@ -28,11 +30,11 @@ const CreateProduct = FormSchema.omit({ id: true});
 
 export type State = {
     errors?: {
-      brandName?: string[];
-      productName?: string[];
-      categoryName?: string[];
-      price?: number;
-      description?: string[];
+        productName?: string[];
+        price?: string[];
+        brandName?: string[];
+        categoryName?: string[];
+        description?: string[];
     };
     message?: string | null;
 };
@@ -42,9 +44,9 @@ export async function createProduct(prevState : State, formData : FormData){
     
     const validatedFields = CreateProduct.safeParse({
         productName: formData.get('productName'),
+        price: formData.get('price'),
         brandName: formData.get('brandName'),
         categoryName: formData.get('categoryName'),
-        price: formData.get('price'),
         description: formData.get('description'),
     });
 
@@ -56,10 +58,10 @@ export async function createProduct(prevState : State, formData : FormData){
     }
 
     const { 
-            productName, 
+            productName,
+            price, 
             brandName, 
             categoryName, 
-            price, 
             description 
         } = validatedFields.data;
     
@@ -72,7 +74,9 @@ export async function createProduct(prevState : State, formData : FormData){
         return {
             message: 'Database Error: Failed to Create Invoice.',
         };
+
     }
+
     revalidatePath('/admin/products');
     redirect('/admin/products');
 }
