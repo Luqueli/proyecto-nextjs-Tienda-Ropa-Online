@@ -6,7 +6,7 @@ import {
     User,
  } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
-
+const ITEMS_PER_PAGE = 6;
 
 export async function fetchBrands() {
     noStore();
@@ -33,12 +33,47 @@ export async function fetchCategories() {
 export async function fetchProducts() {
     noStore();
     try{
-      const data = await sql<Category>`SELECT * FROM products`;
+      const data = await sql<Product>`SELECT * FROM products`;
       return data.rows;
     } catch (error) {
       console.error('Database Error:', error);
       throw new Error('Failed to fetch products data.');
     }
+}
+
+
+export async function fetchOverviewCardsData(){
+  noStore();
+  try{
+    const usersCountPromise = sql`SELECT COUNT(*) FROM users`;
+    const productsCountPromise = sql`SELECT COUNT(*) FROM products`;
+    const categoriesCountPromise = sql`SELECT COUNT(*) FROM categories`;
+    const brandsCountPromise = sql`SELECT COUNT(*) FROM brands`;
+
+    const data = await Promise.all([
+      usersCountPromise,
+      productsCountPromise,
+      categoriesCountPromise,
+      brandsCountPromise,
+    ]);
+
+    const numberOfUsers = Number(data[0].rows[0].count ?? '0');
+    const numberOfProducts = Number(data[1].rows[0].count ?? '0');
+    const numberOfCategories = Number(data[2].rows[0].count ?? '0');
+    const numberOfBrands = Number(data[3].rows[0].count ?? '0');
+
+    return {
+      numberOfUsers,
+      numberOfProducts,
+      numberOfCategories,
+      numberOfBrands,
+    };
+
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch overview data.');
+  }
+
 }
 
 export async function getUser(email: string) {
@@ -49,4 +84,4 @@ export async function getUser(email: string) {
       console.error('Failed to fetch user:', error);
       throw new Error('Failed to fetch user.');
     }
-  }
+}

@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={jost.className}>
+      <body className="bg-customCream">
         <Navbar />
           {children}  
         <Footer />  
