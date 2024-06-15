@@ -6,7 +6,7 @@ export default function Layout({
     children: React.ReactNode;
   }>) {
     return (
-        <div className="w-[70%] min-h-[70vh] bg-white mx-auto p-4">
+        <div className="w-[70%] min-h-[70vh] bg-customCream mx-auto p-4">
                 <Topnav />
                   {children} 
         </div>
