@@ -11,7 +11,7 @@ export default async function Page(){
     } = await fetchOverviewCardsData();
 
     return(
-        <div className="grid grid-cols-2 bg-white md:grid-cols-4 gap-4">
+        <div className="flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8 grid grid-cols-2 bg-customCream md:grid-cols-4 gap-4">
         <Card>
         <CardContent className="flex items-center justify-between">
           <div>

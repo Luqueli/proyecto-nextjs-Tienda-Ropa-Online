@@ -1,8 +1,7 @@
-import { fetchBrands, fetchCategories } from '@/app/lib/data'
-import CreateProductForm from '@/app/ui/products/create-form'
+import {fetchCategories } from '@/app/lib/data'
+import CreateCategoryForm from '@/app/ui/categories/create-form'
 
 export default async function Page(){
-  const brands = await fetchBrands();
   const categories = await fetchCategories();
   
   return (
@@ -11,7 +10,7 @@ export default async function Page(){
         <div>
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">Crear producto</h2>
         </div>
-        <CreateProductForm brands = {brands} categories={categories}/>
+        <CreateCategoryForm categories={categories}/>
       </div>
     </div>
   )

@@ -9,7 +9,7 @@ export type User = {
 export type Product = {
     id : string,
     name: string,
-    decription: string,
+    description: string,
     brandname : string,
     brandid: number,
     categoryid: number,
@@ -20,11 +20,11 @@ export type Product = {
 }
 
 export type Category = {
-  id: number;
+  id: string;
   name: string;
 };
 
 export type Brand = {
-  id : number,
+  id : string,
   name : string
 }

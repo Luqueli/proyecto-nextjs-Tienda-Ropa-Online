@@ -1,52 +1,47 @@
-import { fetchProducts } from "@/app/lib/data"
+import { fetchCategories, fetchProducts } from "@/app/lib/data"
 import { Button } from "@/components/ui/button"
-import  DeleteButton  from '@/app/ui/products/deletebutton'
+import  DeleteButton  from '@/app/ui/categories/deletebutton'
 import Link from "next/link"
-import EditProductButton from "@/app/ui/products/editproduct"
+import EditCategoryButton from "@/app/ui/categories/editcategory"
 
 
 
 export default async function Page(){
-    const products = await fetchProducts()
-    console.log(products)
+    const categories = await fetchCategories()
+
     return(
         <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold">Lista de Productos</h2>
                     <Link 
-                        href = {"/admin/products/create"}
+                        href = {"/admin/categories/create"}
                     >
                         <Button variant="outline" size="sm" className="bg-black text-white">
                             <PlusIcon/>
-                                Agregar producto
+                                Agregar categoría
                         </Button>
 
                     </Link>
-                    
-                </div>
+            </div>
+
             <table className="w-full">
                 <thead>
                     <tr className="bg-gray-100 text-gray-600 font-medium">
-                    <th className="py-3 px-4 text-left">ID</th>
-                    <th className="py-3 px-4 text-left">Nombre</th>
-                    <th className="py-3 px-4 text-left">Marca</th>
-                    <th className="py-3 px-4 text-left">Categoría</th>
-                    <th className="py-3 px-4 text-left">Precio</th>
-                    <th className="py-3 px-4 text-center">Acciones</th>
+                        <th className="py-3 px-4 text-left">ID</th>
+                        <th className="py-3 px-4 text-left">Nombre</th>
+                        <th className="py-3 px-4 text-right">Acciones</th>
                     </tr>
+                    
                 </thead>
                 <tbody>
-                    {products.map((product) => (
-                    <tr key={product.id} className="border-b">
-                        <td className="py-3 px-4">{product.id}</td>
-                        <td className="py-3 px-4">{product.name}</td>
-                        <td className="py-3 px-4">{product.brandname}</td>
-                        <td className="py-3 px-4">{product.categoryname}</td>
-                        <td className="py-3 px-4">${product.price.toFixed(2)}</td>
-                        <td className="py-3 px-4 flex justify-center gap-2">
+                    {categories.map((category) => (
+                    <tr key={category.id} className="border-b">
+                        <td className="py-2 px-3">{category.id}</td>
+                        <td className="py-2 px-3">{category.name}</td>
+                        <td className="py-2 px-3 flex justify-end gap-2">
 
-                        <EditProductButton id={product.id} />
-                        <DeleteButton id={product.id} />
+                        <EditCategoryButton id={category.id} />
+                        <DeleteButton id={category.id} />
                         </td>
                     </tr>
                     )

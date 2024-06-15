@@ -30,6 +30,27 @@ export async function fetchCategories() {
     }
 }
 
+export async function fetchCategoryById(id : string) {
+  noStore();
+  try{
+    const data = await sql<Category>`
+      SELECT *
+      FROM categories
+      WHERE categories.id = ${id}
+    `;
+
+    const category = data.rows.map((category) => ({
+      ...category}))
+
+    return category[0]
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch category data.');
+  }
+}
+
+
+
 export async function fetchProducts() {
     noStore();
     try{
@@ -39,6 +60,25 @@ export async function fetchProducts() {
       console.error('Database Error:', error);
       throw new Error('Failed to fetch products data.');
     }
+}
+
+export async function fetchProductById(id : string) {
+  noStore();
+  try{
+    const data = await sql<Product>`
+      SELECT *
+      FROM products
+      WHERE products.id = ${id}
+    `;
+
+    const product = data.rows.map((product) => ({
+      ...product}))
+
+    return product[0]
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch products data.');
+  }
 }
 
 
