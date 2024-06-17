@@ -85,7 +85,7 @@ export default function CreateForm({
             >
               <SelectGroup>
                 {brands.map( (brand) => (
-                  <SelectItem value={brand.name}>{brand.name}</SelectItem>
+                  <SelectItem key={brand.name} value={brand.name}>{brand.name}</SelectItem>
                 ))}
               </SelectGroup>
             </SelectContent>
@@ -116,7 +116,7 @@ export default function CreateForm({
             <SelectContent>
             <SelectGroup>
                 {categories.map( (category) => (
-                  <SelectItem value={category.name}>{category.name}</SelectItem>
+                  <SelectItem key={category.name} value={category.name}>{category.name}</SelectItem>
                 ))}
               </SelectGroup>
             </SelectContent>

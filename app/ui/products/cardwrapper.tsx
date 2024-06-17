@@ -23,7 +23,7 @@ export default async function CardWrapper(){
                         <div className="p-4">
                             <h3 className="text-lg font-semibold">{product.name}</h3>
                             <div className="flex justify-between items-center mt-2">
-                                <h3 className="text-lg font-semibold">{product.categoryid}</h3>
+                                <h3 className="text-lg font-semibold">{product.category_id}</h3>
                             </div>
                             <span className="text-lg font-semibold">${product.price}</span>
                         </div>

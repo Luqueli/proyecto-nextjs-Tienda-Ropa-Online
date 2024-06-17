@@ -6,6 +6,6 @@ export default async function Create(){
     const categories = await fetchCategories
     ()
     return(
-        <CreateForm brands={brands} categories={categories} />
+        <CreateForm key="create-form" brands={brands} categories={categories} />
     )
 }
