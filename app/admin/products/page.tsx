@@ -21,7 +21,7 @@ export default async function Page(){
                                 Agregar producto
                         </Button>
                     </Link>
-            </div>
+                </div>
             <table className="w-full">
                 <thead>
                     <tr className="bg-gray-100 text-gray-600 font-medium">

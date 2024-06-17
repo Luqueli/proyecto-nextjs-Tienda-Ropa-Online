@@ -102,7 +102,6 @@ export async function createProduct(prevState : State, formData : FormData){
 
     revalidatePath('/admin/products');
     redirect('/admin/products');
-    console.log("path revalidado")
 }
 
 

@@ -98,7 +98,6 @@ export default function EditProductForm({
             </SelectContent>
           </Select>
         </div>
-
         <div id="brand-error" aria-live="polite" aria-atomic="true">
               {state.errors?.brandName &&
                 state.errors.brandName.map((error: string) => (
@@ -144,7 +143,6 @@ export default function EditProductForm({
         </div>
 
       </div>
-
       <div>
         <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Descripción
@@ -168,7 +166,6 @@ export default function EditProductForm({
                 ))
               }
         </div>
-
       </div>
 
       <div className="mt-6 flex justify-end gap-4">
