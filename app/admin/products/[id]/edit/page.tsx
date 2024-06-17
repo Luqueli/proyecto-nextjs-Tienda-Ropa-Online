@@ -16,7 +16,7 @@ export default async function Page( {params} : {params : {id:string} } ){
         <div>
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">Editar producto</h2>
         </div>
-        <EditProductForm product={product} brands = {brands} categories={categories}/>
+        <EditProductForm product={product} brands ={brands} categories={categories}/>
       </div>
     </div>
   )

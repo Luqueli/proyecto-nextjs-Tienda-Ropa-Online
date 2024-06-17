@@ -73,7 +73,6 @@ export async function fetchProductById(id : string) {
 
     const product = data.rows.map((product) => ({
       ...product}))
-
     return product[0]
   } catch (error) {
     console.error('Database Error:', error);

@@ -11,7 +11,7 @@ export default async function Page(){
         <div>
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">Crear producto</h2>
         </div>
-        <CreateProductForm brands = {brands} categories={categories}/>
+        <CreateProductForm brands={brands} categories={categories}/>
       </div>
     </div>
   )

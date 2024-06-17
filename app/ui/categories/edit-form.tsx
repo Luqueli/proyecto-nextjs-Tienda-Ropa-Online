@@ -36,8 +36,8 @@ export default function EditCategoryForm({
         </div>
 
         <div id="categoryname-error" aria-live="polite" aria-atomic="true">
-          {state.errors?.productName &&
-            state.errors.productName.map((error: string) => (
+          {state.errors?.categoryName &&
+            state.errors.categoryName.map((error: string) => (
               <p className="mt-2 text-sm text-red-500" key={error}>
                 {error}
               </p>
@@ -48,13 +48,13 @@ export default function EditCategoryForm({
 
       <div className="mt-6 flex justify-end gap-4">
         <Link
-          href="/admin/products"
+          href="/admin/categories"
           className="flex h-10 items-center rounded-lg bg-white px-4 text-sm font-medium text-black-600 transition-colors hover:bg-gray-200"
         >
           Cancel
         </Link>
         <Button type="submit" className="w-full">
-          Editar producto
+          Editar categoría
         </Button>
       </div>
     </form>

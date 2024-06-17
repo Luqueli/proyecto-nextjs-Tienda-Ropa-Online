@@ -20,10 +20,8 @@ export default async function Page(){
                             <PlusIcon/>
                                 Agregar producto
                         </Button>
-
                     </Link>
-                    
-                </div>
+            </div>
             <table className="w-full">
                 <thead>
                     <tr className="bg-gray-100 text-gray-600 font-medium">
@@ -37,15 +35,20 @@ export default async function Page(){
                 </thead>
                 <tbody>
                     {products.map((product) => (
+
                     <tr key={product.id} className="border-b">
                         <td className="py-3 px-4">{product.id}</td>
                         <td className="py-3 px-4">{product.name}</td>
-                        <td className="py-3 px-4">{product.brandname}</td>
-                        <td className="py-3 px-4">{product.categoryname}</td>
+                        <td className="py-3 px-4">{product.brand_name}</td>
+                        <td className="py-3 px-4">{product.category_name}</td>
                         <td className="py-3 px-4">${product.price.toFixed(2)}</td>
                         <td className="py-3 px-4 flex justify-center gap-2">
 
-                        <EditProductButton id={product.id} />
+                        <Link
+                          href={`/admin/products/${product.id}/edit`} 
+                        >
+                          <EditProductButton />
+                        </Link>
                         <DeleteButton id={product.id} />
                         </td>
                     </tr>

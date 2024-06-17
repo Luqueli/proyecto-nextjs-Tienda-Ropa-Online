@@ -38,19 +38,11 @@ const categoryFormSchema = z.object({
 });
 
 
-
-
-
 const CreateProduct = FormSchema.omit({ id: true});
 const UpdateProduct = FormSchema.omit({ id: true});
 
 const CreateCategory = categoryFormSchema.omit({ id: true});
 const UpdateCategory = categoryFormSchema.omit({ id: true});
-
-
-
-
-
 
 export type State = {
     errors?: {
@@ -62,7 +54,6 @@ export type State = {
     };
     message?: string | null;
 };
-
 
 export type CategoryState = {
     errors?: {
@@ -99,7 +90,7 @@ export async function createProduct(prevState : State, formData : FormData){
     
     try{
         await sql`
-        INSERT INTO products (name,description,brandname,categoryname,price)
+        INSERT INTO products (name,description,brand_name,category_name,price)
         VALUES (${productName}, ${description}, ${brandName},${categoryName},${price})
     `;
     } catch (error){
@@ -111,6 +102,7 @@ export async function createProduct(prevState : State, formData : FormData){
 
     revalidatePath('/admin/products');
     redirect('/admin/products');
+    console.log("path revalidado")
 }
 
 
@@ -142,7 +134,7 @@ export async function updateProduct(id:string, prevState : State,formData : Form
     try{
         await sql`
         UPDATE products
-        SET name = ${productName}, price = ${price}, brandname = ${brandName}, categoryname = ${categoryName}, description = ${description}
+        SET name = ${productName}, price = ${price}, brand_name = ${brandName}, category_name = ${categoryName}, description = ${description}
         WHERE id = ${id}
       `;
 

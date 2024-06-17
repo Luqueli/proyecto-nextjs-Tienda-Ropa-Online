@@ -2,12 +2,12 @@
 
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import { createProduct, updateProduct } from "@/app/lib/actions"
+import { updateProduct } from "@/app/lib/actions"
 import { Brand, Category, Product } from '@/app/lib/definitions';
 import { useFormState } from 'react-dom';
 import Link from 'next/link';
 
-export default function CreateForm({
+export default function EditProductForm({
   brands,
   categories,
   product
@@ -82,8 +82,8 @@ export default function CreateForm({
         <div className="mt-1">
           <Select 
             name="brandName"
+            defaultValue={product.brand_name}
             aria-describedby="brand-error"
-            defaultValue={product.brandname}
             >
             <SelectTrigger className="w-full">
               <SelectValue  />
@@ -98,6 +98,7 @@ export default function CreateForm({
             </SelectContent>
           </Select>
         </div>
+
         <div id="brand-error" aria-live="polite" aria-atomic="true">
               {state.errors?.brandName &&
                 state.errors.brandName.map((error: string) => (
@@ -116,7 +117,8 @@ export default function CreateForm({
         <div className="mt-1">
           <Select
               name="categoryName"  
-              defaultValue={product.categoryname}
+              defaultValue={product.category_name}
+              aria-describedby="category-error"
           >
             <SelectTrigger className="w-full">
                 <SelectValue placeholder="Selecciona una categoría" />
@@ -124,7 +126,7 @@ export default function CreateForm({
             <SelectContent>
               <SelectGroup>
                   {categories.map( (category) => (
-                    <SelectItem key={category.name} value={category.name}>{category.name}</SelectItem>
+                    <SelectItem key={category.id} value={category.name}>{category.name}</SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -142,6 +144,7 @@ export default function CreateForm({
         </div>
 
       </div>
+
       <div>
         <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Descripción
@@ -165,6 +168,7 @@ export default function CreateForm({
                 ))
               }
         </div>
+
       </div>
 
       <div className="mt-6 flex justify-end gap-4">

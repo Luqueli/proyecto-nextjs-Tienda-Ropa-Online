@@ -156,10 +156,6 @@ export default function CreateForm({
                 ))
               }
         </div>
-
-
-
-
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link
@@ -168,6 +164,7 @@ export default function CreateForm({
         >
           Cancel
         </Link>
+        
         <Button type="submit" className="w-full">
           Crear producto
         </Button>

@@ -4,15 +4,11 @@ import Link from "next/link"
 import {updateProduct} from '@/app/lib/actions';
 
 
-export default function EditProductButton({ id }: { id: string }){
+export default function EditProductButton(){
     return(
-        <Link 
-            href={`/admin/products/${id}/edit`}>
             <Button variant="outline" size="sm">
                 <DeleteIcon/>
-            </Button>
-        </Link>
-        
+            </Button>        
     )
 }
 
