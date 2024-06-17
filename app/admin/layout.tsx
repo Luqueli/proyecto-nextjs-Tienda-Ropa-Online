@@ -7,7 +7,7 @@ export default function Layout({
   }>) {
     return (
         <div className="w-[70%] min-h-[70vh] bg-customCream mx-auto p-4">
-                <Topnav />
+                <Topnav key="topnav"/>
                   {children} 
         </div>
 

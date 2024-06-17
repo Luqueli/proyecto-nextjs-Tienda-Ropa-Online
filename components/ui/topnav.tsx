@@ -20,7 +20,7 @@ const links = [
 ];
 
 
-export default function topnav() {
+export default function Topnav() {
   const pathname = usePathname();
   return (
     <div className="bg-customCream text-black p-6">
