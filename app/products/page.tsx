@@ -1,13 +1,31 @@
-import Filters from "@/app/ui/products/filter"
-import CardWrapper from "@/app/ui/products/cardwrapper"
-export default async function Products() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-8 p-4 md:p-8 bg-customCream">
-        <Filters />
-        <CardWrapper />
-        <div className="mt-5 flex w-full justify-center">
-          {/* <Pagination totalPages={totalPages} /> */}
-        </div>
-    </div>
-    )
+import ProductsCards from "@/app/ui/products/productscards"
+import Pagination from '@/app/ui/products/pagination'
+import { fetchProductsPages } from "@/app/lib/data"
+import Search from '@/app/ui/home/search'
+
+
+
+
+
+export default async function Products({
+    searchParams,
+  }: {
+    searchParams?: {
+      query?: string;
+      page?: string;
+    };
+  }) {
+
+    const query = searchParams?.query || '';
+    const currentPage = Number(searchParams?.page) || 1;
+    const totalPages = await fetchProductsPages(query);
+
+
+    return (
+      <div className="container mx-auto px-4 py-8">
+          <Search />
+          <ProductsCards query={query} currentPage={currentPage} />
+          <Pagination totalPages={totalPages}/>
+      </div>
+  )
 } 

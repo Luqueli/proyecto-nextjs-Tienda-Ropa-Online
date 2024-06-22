@@ -1,11 +1,18 @@
-import { fetchProducts } from "@/app/lib/data"
+import { fetchFilteredProducts, fetchProductsPages } from "@/app/lib/data"
 import Image from 'next/image';
-import Link from "next/link"
-export default async function CardWrapper(){
-    const products = await fetchProducts();
-  
+import Link from 'next/link'
+export default async function ProductsCards({
+    query,
+    currentPage
+}:{
+    query: string;
+    currentPage: number;
+}){
+
+    const products = await fetchFilteredProducts(query, currentPage);
+
     return(
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {products.map((product) => (
             
                 <div

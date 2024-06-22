@@ -1,5 +1,6 @@
 import { fetchBrands, fetchCategories, fetchProductById } from '@/app/lib/data'
 import EditProductForm from '@/app/ui/products/edit-form'
+import { notFound } from 'next/navigation';
 
 export default async function Page( {params} : {params : {id:string} } ){
 
@@ -9,6 +10,10 @@ export default async function Page( {params} : {params : {id:string} } ){
         await fetchCategories(),
         await fetchProductById(id)
     ])
+
+    if (!product){
+      notFound();
+    }
   
   return (
     <div className="bg-customCream flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">

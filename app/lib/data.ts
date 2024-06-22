@@ -62,6 +62,40 @@ export async function fetchProducts() {
     }
 }
 
+export async function fetchFilteredProducts(
+  query: string,
+  currentPage: number,
+) {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    noStore();
+    const products = await sql<Product>`
+      SELECT
+        products.id,
+        products.name,
+        products.description,
+        products.brand_name,
+        products.category_name,
+        products.price,
+        products.sizes,
+        products.images
+      FROM products
+      WHERE
+        products.name ILIKE ${`%${query}%`} OR
+        products.category_name ILIKE ${`%${query}%`} OR
+        products.brand_name ILIKE ${`%${query}%`}
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return products.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch filtered products.');
+  }
+}
+
+
 export async function fetchProductById(id : string) {
   noStore();
   try{
@@ -79,6 +113,29 @@ export async function fetchProductById(id : string) {
     throw new Error('Failed to fetch products data.');
   }
 }
+
+export async function fetchProductsPages(query: string) {
+  noStore();
+  try {
+    const count = await sql`SELECT COUNT(*)
+    FROM products
+      WHERE
+        products.name ILIKE ${`%${query}%`} OR
+        products.category_name ILIKE ${`%${query}%`} OR
+        products.brand_name ILIKE ${`%${query}%`}
+  `;
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of invoices.');
+  }
+}
+
+
+
+
 
 
 export async function fetchOverviewCardsData(){

@@ -1,4 +1,4 @@
-import { fetchCategories, fetchProducts } from "@/app/lib/data"
+import { fetchCategories} from "@/app/lib/data"
 import { Button } from "@/components/ui/button"
 import  DeleteButton  from '@/app/ui/categories/deletebutton'
 import Link from "next/link"
@@ -35,15 +35,14 @@ export default async function Page(){
                 </thead>
                 <tbody>
                     {categories.map((category) => (
-                    <tr key={category.id} className="border-b">
-                        <td className="py-2 px-3">{category.id}</td>
-                        <td className="py-2 px-3">{category.name}</td>
-                        <td className="py-2 px-3 flex justify-end gap-2">
-
-                        <EditCategoryButton id={category.id} />
-                        <DeleteButton id={category.id} />
-                        </td>
-                    </tr>
+                      <tr key={category.id} className="border-b">
+                          <td className="py-2 px-3">{category.id}</td>
+                          <td className="py-2 px-3">{category.name}</td>
+                          <td className="py-2 px-3 flex justify-end gap-2">
+                          <EditCategoryButton id={category.id} />
+                          <DeleteButton id={category.id} />
+                          </td>
+                      </tr>
                     )
                     )}
                 </tbody>

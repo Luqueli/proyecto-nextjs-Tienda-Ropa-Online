@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button"
 import { createProduct } from "@/app/lib/actions"
 import { Brand, Category } from '@/app/lib/definitions';
 import { useFormState } from 'react-dom';
+import { useState} from 'react';
+import {CldUploadWidget, getCldImageUrl} from 'next-cloudinary'
 import Link from 'next/link'
+
+
+
+
 
 export default function CreateForm({
   brands,
@@ -16,6 +22,8 @@ export default function CreateForm({
 }){
   const initialState = { message: "", errors: {} };
   const [state, dispatch] = useFormState(createProduct, initialState);
+
+  const [resource, setResource] = useState();
   
   return (
     <form action={dispatch}>
@@ -57,6 +65,7 @@ export default function CreateForm({
             maxLength={20}
             className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm dark:bg-gray-950 dark:border-gray-700 dark:text-gray-50"
             aria-describedby="price-error"
+            placeholder="$"
           />
         </div>
         <div id="price-error" aria-live="polite" aria-atomic="true">
@@ -156,7 +165,29 @@ export default function CreateForm({
                 ))
               }
         </div>
+
       </div>
+
+      <div className="flex justify-center">   
+        <CldUploadWidget 
+          uploadPreset="next_cloudinary_app"
+        >
+            {({ open }) => {
+
+              return (
+                <Button type="button" className="w-full max-w-[200px] bg-gray-900 hover:bg-gray-800 text-white"
+                  onClick={() => open()}
+                
+                >
+                  Subir una imágen
+                </Button>
+              );
+            }}
+        </CldUploadWidget>
+      </div>
+
+
+
       <div className="mt-6 flex justify-end gap-4">
         <Link
           href="/admin/products"

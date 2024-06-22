@@ -1,4 +1,11 @@
+import { fetchBrands } from '@/app/lib/data'
+import Search from '@/app/ui/home/search'
+import Link  from 'next/link'
+
 export default function Navbar(){
+
+    const brands = fetchBrands();
+
     return(
         <div className="navbar bg-customCream">
             <div className="navbar-start">
@@ -7,36 +14,42 @@ export default function Navbar(){
 
             <div className="navbar-center hidden lg:flex font-bold">
                 <ul className="menu menu-horizontal px-1">
-                    <li><a>SHOP</a></li>
-                    
                     <li>
-                        <details>
-                            <summary>TOPS</summary>
-                            <ul className="p-2">
-                                <li><a>Buzos</a></li>
-                                <li><a>Remeras</a></li>
-                            </ul>
-                        </details>
+                        <Link
+                            href="/products"
+                        >
+                            SHOP
+                        </Link>
                     </li>
                     <li>
                         <details>
-                            <summary>BOTTOMS</summary>
+                            <summary>MARCAS</summary>
                             <ul className="p-2">
-                                <li><a>Pantalones</a></li>
-                                <li><a>Shorts</a></li>
+
+                                <li>
+                                    <Link
+                                        href="/products?query=Nike"
+                                    >
+                                        Nike
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href="/products?query=Adidas"
+                                    >
+                                        Adidas
+                                    </Link>
+                                </li>
                             </ul>
                         </details>
                     </li>
-                    <li><a>NOSOTROS.</a></li>
+
                 </ul>
             </div>
 
 
             <div className="navbar-end mr-10">
-                <div className="form-control">
-                    <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-                </div>
-                
+
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                         <div className="indicator">
@@ -74,6 +87,8 @@ export default function Navbar(){
                     </ul>
                 </div>
             </div>
+
+
         </div>
     )
 }

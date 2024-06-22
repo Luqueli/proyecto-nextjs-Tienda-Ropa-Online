@@ -88,6 +88,7 @@ export async function createProduct(prevState : State, formData : FormData){
         description 
     } = validatedFields.data;
     
+    
     try{
         await sql`
         INSERT INTO products (name,description,brand_name,category_name,price)
@@ -95,7 +96,7 @@ export async function createProduct(prevState : State, formData : FormData){
     `;
     } catch (error){
         return {
-            message: 'Database Error: Failed to Create Invoice.',
+            message: 'Database Error: Failed to Create Product.',
         };
 
     }
@@ -151,7 +152,7 @@ export async function updateProduct(id:string, prevState : State,formData : Form
 export async function deleteProduct(id: string) {
     try{
         await sql`DELETE FROM products WHERE id = ${id}`;
-        revalidatePath('/dashboard/products');
+        revalidatePath('/admin/products');
         return { message: 'Deleted product.' };
     }catch(error){
         return {
@@ -234,12 +235,14 @@ export async function updateCategory(id:string, prevState : CategoryState,formDa
 
 export async function deleteCategory(id: string) {
     try{
+        console.log(id)
         await sql`DELETE FROM categories WHERE id = ${id}`;
-        revalidatePath('/dashboard/categories');
+        revalidatePath('/admin/categories');
         return { message: 'Deleted category.' };
     }catch(error){
         return {
             message: 'Database Error: Failed to delete Category.',
         };
     }
+
 }

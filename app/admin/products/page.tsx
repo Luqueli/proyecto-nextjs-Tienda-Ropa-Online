@@ -8,7 +8,7 @@ import EditProductButton from "@/app/ui/products/editproduct"
 
 export default async function Page(){
     const products = await fetchProducts()
-    console.log(products)
+    
     return(
         <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-4">

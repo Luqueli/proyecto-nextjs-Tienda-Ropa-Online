@@ -138,7 +138,6 @@ async function seedProducts(client){
     
         console.log(`Created "products" table`);
     
-        // Insert data into the "products" table
         const insertedProducts= await Promise.all(
           products.map(async (product) => {
             return client.sql`
