@@ -1,4 +1,5 @@
 'use client'
+
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -26,7 +27,7 @@ export default function Search(){
         <div className="flex justify-center mb-6">
             <input 
                 type="text" 
-                placeholder="Busccar un producto" 
+                placeholder="Buscar un producto" 
                 className="input input-bordered w-full max-w-md " 
                 onChange={(e) => {
                     handleSearch(e.target.value);

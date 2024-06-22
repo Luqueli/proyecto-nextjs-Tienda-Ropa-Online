@@ -3,10 +3,6 @@ import Pagination from '@/app/ui/products/pagination'
 import { fetchProductsPages } from "@/app/lib/data"
 import Search from '@/app/ui/home/search'
 
-
-
-
-
 export default async function Products({
     searchParams,
   }: {

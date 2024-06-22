@@ -1,5 +1,5 @@
 import { fetchOverviewCardsData } from "@/app/lib/data"
-import { CardContent, Card } from "@/components/ui/card"
+import { CardContent, Card } from "@/app/ui/admin/card"
 
 export default async function Page(){
 

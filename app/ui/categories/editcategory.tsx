@@ -1,7 +1,6 @@
 'use client'
-import { Button } from "@/components/ui/button"
+import { Button } from "@/app/ui/button"
 import Link from "next/link"
-import {updateCategory} from '@/app/lib/actions';
 
 
 export default function EditProductButton({ id }: { id: string }){

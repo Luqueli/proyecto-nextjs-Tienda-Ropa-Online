@@ -1,7 +1,7 @@
 'use client'
 
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/app/ui/products/select"
+import { Button } from "@/app/ui/button"
 import { updateProduct } from "@/app/lib/actions"
 import { Brand, Category, Product } from '@/app/lib/definitions';
 import { useFormState } from 'react-dom';

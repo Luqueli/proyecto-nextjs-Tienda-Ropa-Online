@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/app/ui/button"
 import { createCategory } from "@/app/lib/actions"
 import { Brand, Category } from '@/app/lib/definitions';
 import { useFormState } from 'react-dom';

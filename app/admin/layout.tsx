@@ -1,4 +1,4 @@
-import Topnav from '@/components/ui/topnav'
+import Topnav from '@/app/ui/admin/topnav'
 
 export default function Layout({
     children,

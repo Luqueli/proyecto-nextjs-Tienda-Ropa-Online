@@ -1,5 +1,5 @@
 import { fetchProducts } from "@/app/lib/data"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/app/ui/button"
 import  DeleteButton  from '@/app/ui/products/deletebutton'
 import Link from "next/link"
 import EditProductButton from "@/app/ui/products/editproduct"

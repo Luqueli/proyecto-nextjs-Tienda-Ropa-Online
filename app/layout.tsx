@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { jost } from '@/app/ui/fonts';
 import Navbar from '@/app/ui/home/navbar'
 import Footer from '@/app/ui/home/footer'
 import '@/app/ui/global.css';

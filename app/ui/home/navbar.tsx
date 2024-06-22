@@ -1,10 +1,9 @@
 import { fetchBrands } from '@/app/lib/data'
-import Search from '@/app/ui/home/search'
 import Link  from 'next/link'
 
-export default function Navbar(){
+export default async function Navbar(){
 
-    const brands = fetchBrands();
+    const brands = await fetchBrands();
 
     return(
         <div className="navbar bg-customCream">
@@ -26,20 +25,20 @@ export default function Navbar(){
                             <summary>MARCAS</summary>
                             <ul className="p-2">
 
-                                <li>
-                                    <Link
-                                        href="/products?query=Nike"
-                                    >
-                                        Nike
-                                    </Link>
+                            {brands.map((brand) => {
+                                const link = `/products?query=${brand.name}`
+                                return(
+                                    <li key={brand.name}>
+                                        <Link
+                                            href= {link}
+                                        >
+                                            {brand.name}
+                                        </Link>
                                 </li>
-                                <li>
-                                    <Link
-                                        href="/products?query=Adidas"
-                                    >
-                                        Adidas
-                                    </Link>
-                                </li>
+
+                                )
+                                }
+                            )}
                             </ul>
                         </details>
                     </li>

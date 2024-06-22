@@ -1,5 +1,5 @@
 import { fetchCategories} from "@/app/lib/data"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/app/ui/button"
 import  DeleteButton  from '@/app/ui/categories/deletebutton'
 import Link from "next/link"
 import EditCategoryButton from "@/app/ui/categories/editcategory"

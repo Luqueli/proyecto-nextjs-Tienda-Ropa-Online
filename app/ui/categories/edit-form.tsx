@@ -1,9 +1,8 @@
 'use client'
 
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
-import { createProduct, updateCategory, updateProduct } from "@/app/lib/actions"
-import { Brand, Category, Product } from '@/app/lib/definitions';
+import { Button } from "@/app/ui/button"
+import {updateCategory} from "@/app/lib/actions"
+import {Category} from '@/app/lib/definitions';
 import { useFormState } from 'react-dom';
 import Link from 'next/link';
 

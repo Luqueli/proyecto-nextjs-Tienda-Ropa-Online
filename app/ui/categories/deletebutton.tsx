@@ -1,5 +1,5 @@
 'use client'
-import { Button } from "@/components/ui/button"
+import { Button } from "@/app/ui/button"
 import { deleteCategory } from '@/app/lib/actions';
 
 

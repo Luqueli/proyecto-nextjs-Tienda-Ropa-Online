@@ -1,12 +1,12 @@
 'use client'
 
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/app/ui/products/select"
+import { Button } from "@/app/ui/button"
 import { createProduct } from "@/app/lib/actions"
 import { Brand, Category } from '@/app/lib/definitions';
 import { useFormState } from 'react-dom';
 import { useState} from 'react';
-import {CldUploadWidget, getCldImageUrl} from 'next-cloudinary'
+import {CldUploadWidget} from 'next-cloudinary'
 import Link from 'next/link'
 
 
