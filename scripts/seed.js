@@ -131,7 +131,6 @@ async function seedProducts(client){
             category_id INTEGER REFERENCES categories(id),
             category_name VARCHAR(255),
             price INT NOT NULL,
-            sizes FLOAT[],
             images TEXT
           );
         `;
@@ -141,7 +140,7 @@ async function seedProducts(client){
         const insertedProducts= await Promise.all(
           products.map(async (product) => {
             return client.sql`
-            INSERT INTO products (name,description,brand_name,brand_id,category_id,category_name,price,sizes,images)
+            INSERT INTO products (name,description,brand_name,brand_id,category_id,category_name,price,images)
             VALUES ( 
               ${product.name},
               ${product.description},
@@ -150,7 +149,6 @@ async function seedProducts(client){
               ${product.categoryid},
               ${product.categoryname},
               ${product.price},
-              ${product.sizes},
               ${product.images}
             );
           `;

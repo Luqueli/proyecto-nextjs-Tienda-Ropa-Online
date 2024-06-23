@@ -49,8 +49,6 @@ export async function fetchCategoryById(id : string) {
   }
 }
 
-
-
 export async function fetchProducts() {
     noStore();
     try{
@@ -78,7 +76,6 @@ export async function fetchFilteredProducts(
         products.brand_name,
         products.category_name,
         products.price,
-        products.sizes,
         products.images
       FROM products
       WHERE
@@ -133,8 +130,16 @@ export async function fetchProductsPages(query: string) {
   }
 }
 
-
-
+export async function fetchProductsImages() {
+  noStore();
+  try{
+    const data = await sql<String>`SELECT images FROM products`;
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch products images.');
+  }
+}
 
 
 

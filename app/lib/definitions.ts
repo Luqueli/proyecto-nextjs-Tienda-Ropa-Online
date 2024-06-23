@@ -15,7 +15,6 @@ export type Product = {
     category_id: number,
     category_name : string,
     price : number,
-    sizes : number[],
     images : string
 }
 

@@ -5,13 +5,8 @@ import { Button } from "@/app/ui/button"
 import { createProduct } from "@/app/lib/actions"
 import { Brand, Category } from '@/app/lib/definitions';
 import { useFormState } from 'react-dom';
-import { useState} from 'react';
-import {CldUploadWidget} from 'next-cloudinary'
+import { useState } from 'react';
 import Link from 'next/link'
-
-
-
-
 
 export default function CreateForm({
   brands,
@@ -27,7 +22,7 @@ export default function CreateForm({
   
   return (
     <form action={dispatch}>
-      <div >
+      <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Nombre
         </label>
@@ -143,10 +138,12 @@ export default function CreateForm({
         </div>
 
       </div>
+
       <div>
         <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Descripción
         </label>
+        
         <div className="mt-1">
           <input
             id="description"
@@ -165,27 +162,29 @@ export default function CreateForm({
                 ))
               }
         </div>
-
       </div>
 
-      <div className="flex justify-center">   
-        <CldUploadWidget 
-          uploadPreset="next_cloudinary_app"
-        >
-            {({ open }) => {
+      <div className="py-10 px-10 mt-1">   
+        <input 
+          className="w-full max-w-[370px] bg-gray-900 hover:bg-gray-800 text-white"
+          id="image"
+          name="image"
+          type="file" 
+          accept=".jpg,.jpeg,.png"
+          onClick={() => open()}
+          aria-describedby="image-error"
+        />
 
-              return (
-                <Button type="button" className="w-full max-w-[200px] bg-gray-900 hover:bg-gray-800 text-white"
-                  onClick={() => open()}
-                
-                >
-                  Subir una imágen
-                </Button>
-              );
-            }}
-        </CldUploadWidget>
+        <div id="image-error" aria-live="polite" aria-atomic="true">
+              {state.errors?.image &&
+                state.errors.image.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+                ))
+              }
+        </div>        
       </div>
-
 
 
       <div className="mt-6 flex justify-end gap-4">

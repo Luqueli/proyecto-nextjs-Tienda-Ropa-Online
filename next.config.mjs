@@ -4,19 +4,12 @@ const nextConfig = {
         domains : [
             'nikearprod.vtexassets.com',
             'acdn.mitiendanube.com',
-            'm.media-amazon.com',
-            'encrypted-tbn0.gstatic.com', 
-            'i8.amplience.net',
-            'dcdn.mitiendanube.com',
+            'static.nike.com',
+            'www.futbolemotion.com',
             'assets.adidas.com',
             'www.fullram.com.ar',
-            'kenlu.net',
-            'www.manelsanchez.pt',
-            '2app.kicksonfire.com',
             'megasport.ua',
-            'http2.mlstatic.com',
-            'static.nike.com',  
-
+            'http2.mlstatic.com'
         ],
     }
 };

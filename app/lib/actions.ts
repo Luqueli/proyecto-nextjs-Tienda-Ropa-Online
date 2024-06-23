@@ -3,14 +3,29 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { Cloudinary } from "@cloudinary/url-gen";
+
+const ACCEPTED_FILE_TYPES = ['image/png , image/jpeg, image/jpg '];
+
+
+
+const cloudinary = new Cloudinary({
+    cloud: {
+      cloudName: process.env.CLOUDINARY_CLOUD_NAME
+    },
+    url: {
+      secure: true // Use https by default
+    }
+  });
+
 
 const FormSchema = z.object({
     id : z.string(),
 
     productName: z.string({
         invalid_type_error: 'Poner un nombre'
-    }).min(1,{message: 'Poner un nombre'})
-    ,
+    }).min(1,{message: 'Poner un nombre'}),
+
     price: z.coerce.
     number()
     .gt(0, { message: 'Ingresar una cantidad mayor a 0 .' }),
@@ -26,6 +41,11 @@ const FormSchema = z.object({
     description : z.string({
         invalid_type_error: 'Poner una descripción.',
     }).min(1, {message : 'Poner una descripción'}),
+
+    image : z.instanceof(File)
+            .refine((file) => {
+                return ACCEPTED_FILE_TYPES.includes(file.type);
+            }, 'File must be a PNG')
 });
 
 const categoryFormSchema = z.object({
@@ -51,6 +71,7 @@ export type State = {
         brandName?: string[];
         categoryName?: string[];
         description?: string[];
+        image?: string[];
     };
     message?: string | null;
 };
@@ -71,6 +92,7 @@ export async function createProduct(prevState : State, formData : FormData){
         brandName: formData.get('brandName'),
         categoryName: formData.get('categoryName'),
         description: formData.get('description'),
+        image: formData.get('image')
     });
     
     if (!validatedFields.success) {
@@ -85,11 +107,14 @@ export async function createProduct(prevState : State, formData : FormData){
         price, 
         brandName, 
         categoryName, 
-        description 
+        description,
+        image
     } = validatedFields.data;
     
     
     try{
+
+
         await sql`
         INSERT INTO products (name,description,brand_name,category_name,price)
         VALUES (${productName}, ${description}, ${brandName},${categoryName},${price})

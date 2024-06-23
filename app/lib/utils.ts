@@ -34,8 +34,6 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     ];
   };
 
-
-
   export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
   }
