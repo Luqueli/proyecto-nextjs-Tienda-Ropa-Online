@@ -44,5 +44,5 @@ El footer quedó como parte estética y como parte del layout, ya que no impleme
 
 Hasta el momento de la entrega, la página de productos se podía visualizar y agregar al carrito sin problema. Salimos del ambito de developer y se rompió todo.
 
-![pagina_funcionando]([https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png](https://res.cloudinary.com/dch0yp6xx/image/upload/v1719214835/WhatsApp_Image_2024-06-23_at_23.40.45_ttykpx.jpg))
+![pagina_funcionando](https://res.cloudinary.com/dch0yp6xx/image/upload/v1719214835/WhatsApp_Image_2024-06-23_at_23.40.45_ttykpx.jpg)
 
