@@ -5,7 +5,6 @@ import { Button } from "@/app/ui/button"
 import { createProduct } from "@/app/lib/actions"
 import { Brand, Category } from '@/app/lib/definitions';
 import { useFormState } from 'react-dom';
-import { useState } from 'react';
 import Link from 'next/link'
 
 export default function CreateForm({
@@ -17,8 +16,6 @@ export default function CreateForm({
 }){
   const initialState = { message: "", errors: {} };
   const [state, dispatch] = useFormState(createProduct, initialState);
-
-  const [resource, setResource] = useState();
   
   return (
     <form action={dispatch}>

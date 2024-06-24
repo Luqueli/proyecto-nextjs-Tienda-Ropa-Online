@@ -16,11 +16,14 @@ export default async function Page( {params} : {params : {id:string} } ){
     }
   
   return (
-    <div className="bg-customCream flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-      <div className="bg-customCream w-full max-w-md space-y-8">
-        <div>
+    <div className="flex justify-center items-center gap-12 p-8 md:p-12">
+      
+      <div className="hidden md:block">
+        <img src={product.image} alt="Product Image" width={300} height={300} className="rounded-lg shadow-lg" />
+      </div>
+
+      <div className="w-full max-w-md">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">Editar producto</h2>
-        </div>
         <EditProductForm product={product} brands ={brands} categories={categories}/>
       </div>
     </div>

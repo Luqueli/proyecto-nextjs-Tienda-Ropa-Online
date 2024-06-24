@@ -3,20 +3,16 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { Cloudinary } from "@cloudinary/url-gen";
+import {v2 as cloudinary} from 'cloudinary'
 
-const ACCEPTED_FILE_TYPES = ['image/png , image/jpeg, image/jpg '];
+//Archivos aceptados para chequear el esquema con zod.
+const ACCEPTED_FILE_TYPES = ['image/png','image/jpg ','image/jpeg'];
 
-
-
-const cloudinary = new Cloudinary({
-    cloud: {
-      cloudName: process.env.CLOUDINARY_CLOUD_NAME
-    },
-    url: {
-      secure: true // Use https by default
-    }
-  });
+cloudinary.config({
+    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+})
 
 
 const FormSchema = z.object({
@@ -45,10 +41,11 @@ const FormSchema = z.object({
     image : z.instanceof(File)
             .refine((file) => {
                 return ACCEPTED_FILE_TYPES.includes(file.type);
-            }, 'File must be a PNG')
+            }, 'Por favor, subir una imágen')
 });
 
-const categoryFormSchema = z.object({
+
+const CategoryFormSchema = z.object({
     id : z.string(),
 
     categoryName: z.string({
@@ -61,8 +58,8 @@ const categoryFormSchema = z.object({
 const CreateProduct = FormSchema.omit({ id: true});
 const UpdateProduct = FormSchema.omit({ id: true});
 
-const CreateCategory = categoryFormSchema.omit({ id: true});
-const UpdateCategory = categoryFormSchema.omit({ id: true});
+const CreateCategory = CategoryFormSchema.omit({ id: true});
+const UpdateCategory = CategoryFormSchema.omit({ id: true});
 
 export type State = {
     errors?: {
@@ -92,7 +89,7 @@ export async function createProduct(prevState : State, formData : FormData){
         brandName: formData.get('brandName'),
         categoryName: formData.get('categoryName'),
         description: formData.get('description'),
-        image: formData.get('image')
+        image: formData.get('image') as File
     });
     
     if (!validatedFields.success) {
@@ -111,13 +108,27 @@ export async function createProduct(prevState : State, formData : FormData){
         image
     } = validatedFields.data;
     
-    
+    const arrayImage = await image.arrayBuffer();
+    const buffer = new Uint8Array(arrayImage)
+
+    const uploadResult : any = await new Promise((resolve, reject) => {
+        
+      cloudinary.uploader.upload_stream({}, function (error, result){
+        if ( error ) {
+            reject(error)
+        }
+        resolve(result);
+
+    }).end(buffer);
+    })
+
+    const imageUrl = uploadResult.url
+    const publicId = uploadResult.public_id
+
     try{
-
-
         await sql`
-        INSERT INTO products (name,description,brand_name,category_name,price)
-        VALUES (${productName}, ${description}, ${brandName},${categoryName},${price})
+        INSERT INTO products (name,description,brand_name,category_name,price,image,cloudinary_public_id)
+        VALUES (${productName}, ${description},${brandName},${categoryName},${price},${imageUrl},${publicId})
     `;
     } catch (error){
         return {
@@ -153,7 +164,7 @@ export async function updateProduct(id:string, prevState : State,formData : Form
         price, 
         brandName, 
         categoryName, 
-        description 
+        description
     } = validatedFields.data;
 
     try{
@@ -174,8 +185,11 @@ export async function updateProduct(id:string, prevState : State,formData : Form
 
 }
 
-export async function deleteProduct(id: string) {
+export async function deleteProduct(id: string, cloudinary_public_id:string) {
+
     try{
+        const result = await cloudinary.uploader.destroy(cloudinary_public_id);
+        console.log('Imagen eliminada exitosamente:', result);
         await sql`DELETE FROM products WHERE id = ${id}`;
         revalidatePath('/admin/products');
         return { message: 'Deleted product.' };

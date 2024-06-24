@@ -3,8 +3,8 @@ import { Button } from "@/app/ui/button"
 import { deleteProduct} from '@/app/lib/actions';
 
 
-export default function DeleteProductButton({ id }: { id: string }){
-    const deleteProductWithId = deleteProduct.bind(null, id);
+export default function DeleteProductButton({ id, cloudinary_public_id }: { id: string, cloudinary_public_id : string }){
+    const deleteProductWithId = deleteProduct.bind(null, id, cloudinary_public_id);
     return(
         <form action={deleteProductWithId}>
             <Button variant="outline" size="sm" className="text-red-500">

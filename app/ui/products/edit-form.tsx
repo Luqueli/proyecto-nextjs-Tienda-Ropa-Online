@@ -22,7 +22,7 @@ export default function EditProductForm({
   
   return (
     <form action={dispatch}>
-      <div >
+      <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Nombre
         </label>
@@ -166,6 +166,28 @@ export default function EditProductForm({
                 ))
               }
         </div>
+      </div>
+
+      <div className="py-6 px-10 mt-1">   
+        <input 
+          className="w-full max-w-[370px] bg-gray-900 hover:bg-gray-800 text-white"
+          id="image"
+          name="image"
+          type="file" 
+          accept=".jpg,.jpeg,.png"
+          onClick={() => open()}
+          aria-describedby="image-error"
+        />
+
+        <div id="image-error" aria-live="polite" aria-atomic="true">
+              {state.errors?.image &&
+                state.errors.image.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+                ))
+              }
+        </div>        
       </div>
 
       <div className="mt-6 flex justify-end gap-4">

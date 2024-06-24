@@ -49,7 +49,7 @@ export default async function Page(){
                         >
                           <EditProductButton />
                         </Link>
-                        <DeleteButton id={product.id} />
+                        <DeleteButton id={product.id} cloudinary_public_id={product.cloudinary_public_id} />
                         </td>
                     </tr>
                     )

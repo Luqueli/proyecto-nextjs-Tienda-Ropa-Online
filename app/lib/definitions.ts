@@ -11,11 +11,10 @@ export type Product = {
     name: string,
     description: string,
     brand_name : string,
-    brand_id: number,
-    category_id: number,
     category_name : string,
     price : number,
-    images : string
+    image : string,
+    cloudinary_public_id : string
 }
 
 export type Category = {
