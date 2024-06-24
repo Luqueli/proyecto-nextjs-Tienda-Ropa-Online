@@ -6,7 +6,9 @@ import { CartItem } from '@/app/lib/definitions';
 
 export default function DropdownCart() {
 
-  const [cartItems, setCartItems] = useState<CartItem[]>(JSON.parse(localStorage.getItem('cartItems')));
+  const savedCartItems = localStorage.getItem('cartItems');
+  
+  const [cartItems, setCartItems] = useState<CartItem[]>(savedCartItems ? JSON.parse(savedCartItems) : []);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -29,24 +31,25 @@ export default function DropdownCart() {
   }, []);
 
   const removePair = (id: string) => {
-    const indexOfItem = cartItems!.findIndex(item => item.id === id);
-    if (cartItems![indexOfItem].quantity > 1) {
-      const newCartItems = [...cartItems!];
+    const indexOfItem = cartItems.findIndex(item => item.id === id);
+
+    if (cartItems[indexOfItem].quantity > 1) {
+      const newCartItems = [...cartItems];
       newCartItems[indexOfItem].quantity -= 1;
       setCartItems(newCartItems);
       localStorage.setItem('cartItems', JSON.stringify(newCartItems));
     } else {
-      const newCartItems = cartItems!.filter(item => item.id !== id);
+      const newCartItems = cartItems.filter(item => item.id !== id);
       setCartItems(newCartItems);
       localStorage.setItem('cartItems', JSON.stringify(newCartItems));
     }
   };
 
-  const totalAmount = cartItems!.reduce((total, item) => total + (item.quantity * item.unitCost), 0);
+  const totalAmount = cartItems.reduce((total, item) => total + (item.quantity * item.unitCost), 0);
 
   const handleSubmit = () => {
-    if (cartItems!.length!=0){
-      payment(cartItems!);  
+    if (cartItems.length!=0){
+      payment(cartItems);  
     }
   }
   

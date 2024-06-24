@@ -176,19 +176,9 @@ export default function EditProductForm({
           type="file" 
           accept=".jpg,.jpeg,.png"
           onClick={() => open()}
-          aria-describedby="image-error"
         />       
       </div>
 
-      <div id="image-error" aria-live="polite" aria-atomic="true">
-          {state.errors?.image &&
-            state.errors.image.map((error: string) => (
-              <p className="mt-2 text-sm text-red-500" key={error}>
-                {error}
-              </p>
-            ))
-          }
-      </div>
 
       <div className="mt-6 flex justify-end gap-4">
         <Link

@@ -61,7 +61,7 @@ const CategoryFormSchema = z.object({
 
 
 const CreateProduct = FormSchema.omit({ id: true});
-const UpdateProduct = FormSchema.omit({ id: true});
+const UpdateProduct = FormSchema.omit({ id: true, image:true});
 
 const CreateCategory = CategoryFormSchema.omit({ id: true});
 const UpdateCategory = CategoryFormSchema.omit({ id: true});
@@ -155,7 +155,6 @@ export async function updateProduct(id:string,oldUrl : string, oldPublicId: stri
         brandName: formData.get('brandName'),
         categoryName: formData.get('categoryName'),
         description: formData.get('description'),
-        image : formData.get('image') as File | null
     });
 
     if (!validatedFields.success) {
@@ -171,13 +170,15 @@ export async function updateProduct(id:string,oldUrl : string, oldPublicId: stri
         brandName, 
         categoryName, 
         description,
-        image
     } = validatedFields.data;
+
+    const image = formData.get('image') as File
+
 
     let imageUrl : string | undefined = undefined;
     let newPublicId: string | undefined = undefined;  
 
-    if (image){
+    if (image.size != 0){
         const product = fetchProductById(id);
         const cloudinary_public_id = (await product).cloudinary_public_id;
 
@@ -204,20 +205,18 @@ export async function updateProduct(id:string,oldUrl : string, oldPublicId: stri
     }
 
     try{
-        if(imageUrl){
-            const result = await cloudinary.uploader.destroy((oldPublicId));
-            console.log('Imagen eliminada exitosamente:', result);
-            await sql`
-                UPDATE products
-                SET name = ${productName}, price = ${price}, brand_name = ${brandName}, category_name = ${categoryName}, description = ${description},
-                    image = ${imageUrl}, cloudinary_public_id = ${newPublicId}
-                WHERE id = ${id}
+        if(image.size == 0){
+          await sql`
+            UPDATE products
+            SET name = ${productName}, price = ${price}, brand_name = ${brandName}, category_name = ${categoryName}, description = ${description}
+            WHERE id = ${id}
             `;
         }  
         else{
             await sql`
                 UPDATE products
-                SET name = ${productName}, price = ${price}, brand_name = ${brandName}, category_name = ${categoryName}, description = ${description}
+                SET name = ${productName}, price = ${price}, brand_name = ${brandName}, category_name = ${categoryName}, description = ${description},
+                    image = ${imageUrl}, cloudinary_public_id = ${newPublicId}
                 WHERE id = ${id}
             `;
 
