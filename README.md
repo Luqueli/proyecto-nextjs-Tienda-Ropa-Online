@@ -1,6 +1,6 @@
 
 
-### Proyecto IAW 2024: Carrito de compras con Next.js 14
+# Proyecto IAW 2024: Carrito de compras con Next.js 14
 
 *La idea de este archivo Readme es explicar y expresar cómo fue el proceso que derivó en el resultado final de la aplicación web, contando las trabas y errores que tuvimos.*
 
@@ -30,9 +30,9 @@ Los últimos días fueron los más dificiles porque al integrar Cloudinary para 
 
 En cuanto a cómo fue nuestro trabajo más allá de lo técnico, nos juntamos basntate a codear juntos porque somos amigos, así que cada vez que podíamos resolver alguna trabita que nos frenaba bastante nos poníamos bastantes contentos, y eso creemos que nos llevó a no dejar las cosas por la mitad e intentar hacer un trabajo aceptable.
 
-# Algunas cosas que sabemos que nos quedaron pendientes pero que no pudimos resolver a tiempo fueron las siguientes:
+### Algunas cosas que sabemos que nos quedaron pendientes pero que no pudimos resolver a tiempo fueron las siguientes:
 
-# Sabemos que tenemos errores por corregir, pero intentamos hacer todo lo que pudimos hasta el último momento. De antemano pedimos disculpas si algún punto crucial no fue cumplido pero Tomás, los últimos 5 días fue baja total por gripe, por lo que también nos atrasó, aunque consideramos que es algo que en la vida real sucede con total naturaleza
+### Sabemos que tenemos errores por corregir, pero intentamos hacer todo lo que pudimos hasta el último momento. De antemano pedimos disculpas si algún punto crucial no fue cumplido pero Tomás, los últimos 5 días fue baja total por gripe, por lo que también nos atrasó, aunque consideramos que es algo que en la vida real sucede con total naturaleza
 	
 - Sacar tipados any de algunas functions:
 Un caso en concreto es cuando usamos la API de terceros Cloudinary. Al querer subir una imágen con la API, recibimos una promesa que en el reject pasa como parámetro un valor de tipo UploadApiErrorResponse, y en el resolve, un valor de tipo UploadApiResponse. Buscamos soluciones en internet, intentando definir un tipo propio en el archivo definitions.ts, pero no pudimos. Lo solucionamos declarando la respuesta e tipo any.
