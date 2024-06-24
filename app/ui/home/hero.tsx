@@ -1,6 +1,7 @@
 import { Carousel, CarouselContent, CarouselItem } from "@/app/ui/home/carousel"
 import Link from "next/link"
 import { fetchProducts, fetchProductsImages } from "@/app/lib/data"
+import Image from "next/image"
 
 export default async function Hero() {
   const products = await fetchProducts()
@@ -16,7 +17,12 @@ export default async function Hero() {
               <CarouselContent>
                 {products.map((product) => (
                   <CarouselItem>
-                    <img src={product.images} alt="Shoe 1" className="w-full h-full object-cover rounded-lg" />
+                    <Image 
+                      src={product.image}
+                      alt={product.name} 
+                      height="3144"
+                      width="3144"
+                      className="w-full h-full object-cover rounded-lg" />
                   </CarouselItem>
                 )
                 )}

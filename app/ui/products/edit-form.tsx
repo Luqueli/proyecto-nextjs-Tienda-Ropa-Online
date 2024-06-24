@@ -16,7 +16,7 @@ export default function EditProductForm({
   categories : Category[],
   product: Product
 }){
-  const updateProducteWithId = updateProduct.bind(null,product.id)
+  const updateProducteWithId = updateProduct.bind(null,product.id,product.image,product.cloudinary_public_id)
   const initialState = { message: "", errors: {} };
   const [state, dispatch] = useFormState(updateProducteWithId, initialState);
   
@@ -177,17 +177,17 @@ export default function EditProductForm({
           accept=".jpg,.jpeg,.png"
           onClick={() => open()}
           aria-describedby="image-error"
-        />
+        />       
+      </div>
 
-        <div id="image-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.image &&
-                state.errors.image.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))
-              }
-        </div>        
+      <div id="image-error" aria-live="polite" aria-atomic="true">
+          {state.errors?.image &&
+            state.errors.image.map((error: string) => (
+              <p className="mt-2 text-sm text-red-500" key={error}>
+                {error}
+              </p>
+            ))
+          }
       </div>
 
       <div className="mt-6 flex justify-end gap-4">

@@ -2,14 +2,7 @@
 const nextConfig = {
     images : {
         domains : [
-            'nikearprod.vtexassets.com',
-            'acdn.mitiendanube.com',
-            'static.nike.com',
-            'www.futbolemotion.com',
-            'assets.adidas.com',
-            'www.fullram.com.ar',
-            'megasport.ua',
-            'http2.mlstatic.com'
+            'res.cloudinary.com',
         ],
     }
 };

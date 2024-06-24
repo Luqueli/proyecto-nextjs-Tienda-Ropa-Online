@@ -4,6 +4,11 @@ import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import {v2 as cloudinary} from 'cloudinary'
+import { signIn, signOut} from '@/auth';
+import  { AuthError }  from 'next-auth';
+import { MercadoPagoConfig, Preference } from 'mercadopago';
+import { CartItem } from './definitions';
+import { fetchProductById } from './data';
 
 //Archivos aceptados para chequear el esquema con zod.
 const ACCEPTED_FILE_TYPES = ['image/png','image/jpg ','image/jpeg'];
@@ -142,7 +147,7 @@ export async function createProduct(prevState : State, formData : FormData){
 }
 
 
-export async function updateProduct(id:string, prevState : State,formData : FormData){
+export async function updateProduct(id:string,oldUrl : string, oldPublicId: string, prevState : State,formData : FormData){
    
     const validatedFields = UpdateProduct.safeParse({
         productName: formData.get('productName'),
@@ -150,6 +155,7 @@ export async function updateProduct(id:string, prevState : State,formData : Form
         brandName: formData.get('brandName'),
         categoryName: formData.get('categoryName'),
         description: formData.get('description'),
+        image : formData.get('image') as File | null
     });
 
     if (!validatedFields.success) {
@@ -159,27 +165,68 @@ export async function updateProduct(id:string, prevState : State,formData : Form
         };
     }
 
-    const { 
+    const {     
         productName,
         price, 
         brandName, 
         categoryName, 
-        description
+        description,
+        image
     } = validatedFields.data;
 
-    try{
-        await sql`
-        UPDATE products
-        SET name = ${productName}, price = ${price}, brand_name = ${brandName}, category_name = ${categoryName}, description = ${description}
-        WHERE id = ${id}
-      `;
+    let imageUrl : string | undefined = undefined;
+    let newPublicId: string | undefined = undefined;  
 
+    if (image){
+        const product = fetchProductById(id);
+        const cloudinary_public_id = (await product).cloudinary_public_id;
+
+        //Elimino la imágen anterior correspondiente al producto
+        const result = await cloudinary.uploader.destroy((cloudinary_public_id));
+        console.log('Imagen eliminada exitosamente:', result);
+
+        //Subo la nueva imágen correspondiente al producto
+        const arrayImage = await image.arrayBuffer();
+        const buffer = new Uint8Array(arrayImage)
+
+        const uploadResult : any = await new Promise((resolve, reject) => {
+            
+            cloudinary.uploader.upload_stream({}, function (error, result){
+            if ( error ) {
+                reject(error)
+            }
+            resolve(result);
+
+        }).end(buffer);
+        })
+        imageUrl = uploadResult.url;
+        newPublicId = uploadResult.public_id;  //Actualizo el public ID de cloudinary
+    }
+
+    try{
+        if(imageUrl){
+            const result = await cloudinary.uploader.destroy((oldPublicId));
+            console.log('Imagen eliminada exitosamente:', result);
+            await sql`
+                UPDATE products
+                SET name = ${productName}, price = ${price}, brand_name = ${brandName}, category_name = ${categoryName}, description = ${description},
+                    image = ${imageUrl}, cloudinary_public_id = ${newPublicId}
+                WHERE id = ${id}
+            `;
+        }  
+        else{
+            await sql`
+                UPDATE products
+                SET name = ${productName}, price = ${price}, brand_name = ${brandName}, category_name = ${categoryName}, description = ${description}
+                WHERE id = ${id}
+            `;
+
+        }
     }catch(error){
         return {
             message: 'Database Error: Failed to Update product'
         }
     } 
-
     revalidatePath('/admin/products');
     redirect('/admin/products')
 
@@ -199,8 +246,6 @@ export async function deleteProduct(id: string, cloudinary_public_id:string) {
         };
     }
 }
-
-
 
 export async function createCategory(prevState : CategoryState, formData : FormData){
 
@@ -284,4 +329,75 @@ export async function deleteCategory(id: string) {
         };
     }
 
+}
+
+export async function authenticate(
+    prevState: string | undefined,
+    formData: FormData,
+  ) {
+    try {
+      console.log("Se ejecuta authenticate luego de presionar el boton log in");
+      console.log("Email que ingresa:"+formData.get('email'));
+      console.log("Password que ingresa:"+formData.get('password'));
+      await signIn('credentials',{
+        ...Object.fromEntries(formData),
+        redirectTo: "/admin"
+      });
+    } 
+    catch (error) {
+      if (error instanceof AuthError) {
+        switch (error.type) {
+          case 'CredentialsSignin':
+            return 'Invalid credentials.';
+          default:
+            return 'El email o contraseña son incorrectos.';
+        }
+      }
+      throw error;
+    }
+}
+
+
+export async function logOut() {
+    try{
+        await signOut({redirectTo : '/'})
+    }
+    catch (error) {
+        if (error instanceof AuthError) {
+            switch (error.type) {
+            case 'CredentialsSignin':
+                return 'Invalid credentials.';
+            default:
+                return 'Something went wrong.';
+            }
+        }
+        throw error;
+    }
+}
+
+export async function payment(cartItems: CartItem []){
+    const client = new MercadoPagoConfig({accessToken : process.env.MP_ACCESS_TOKEN!});
+    const preference = new Preference(client);
+    
+    // Crear un arreglo para almacenar los items
+    const items = cartItems.map(item => ({
+        id: item.id.toString(),
+        title: `${item.brand_name} ${item.model}`,
+        quantity: Number(item.quantity),
+        unit_price: Number(item.unitCost),
+        currency_id : "ARS"
+    }));
+
+    //Colocar las urls del deploy en vercel!!.
+    const result= await preference.create({
+        body : {
+            items: items,
+            back_urls: {
+                success: "",
+                failure: "",
+                pending: "",
+            },
+        },
+    })
+    redirect(result.init_point!) 
 }

@@ -1,7 +1,5 @@
 
 export type User = {
-    id: string;
-    name: string;
     email: string;
     password: string;
   };
@@ -25,4 +23,12 @@ export type Category = {
 export type Brand = {
   id : string,
   name : string
+}
+
+export type CartItem= {
+  id : string,
+  model: string,
+  brand_name : string,
+  quantity : number,
+  unitCost : number,
 }

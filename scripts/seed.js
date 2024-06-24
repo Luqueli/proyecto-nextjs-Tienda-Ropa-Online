@@ -15,8 +15,6 @@ async function seedUsers(client) {
         // Create the "users" table if it doesn't exist
         const createTable = await client.sql`
             CREATE TABLE IF NOT EXISTS users (
-            id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
             email TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL
             );
@@ -28,9 +26,8 @@ async function seedUsers(client) {
             users.map(async (user) => {
             const hashedPassword = await bcrypt.hash(user.password, 10);
             return client.sql`
-            INSERT INTO users (id, name, email, password)
-            VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword})
-            ON CONFLICT (id) DO NOTHING;
+            INSERT INTO users (email, password)
+            VALUES (${user.email}, ${hashedPassword})
             `;
             }),
         );
@@ -139,14 +136,15 @@ async function seedProducts(client){
         const insertedProducts= await Promise.all(
           products.map(async (product) => {
             return client.sql`
-            INSERT INTO products (name,description,brand_name,category_name,price,image)
+            INSERT INTO products (name,description,brand_name,category_name,price,image,cloudinary_public_id)
             VALUES ( 
               ${product.name},
               ${product.description},
               ${product.brandname},
               ${product.categoryname},
               ${product.price},
-              ${product.images}
+              ${product.image},
+              ${product.cloudinary_public_id}
             );
           `;
           }),

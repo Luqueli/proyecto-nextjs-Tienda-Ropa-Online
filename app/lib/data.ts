@@ -76,7 +76,7 @@ export async function fetchFilteredProducts(
         products.brand_name,
         products.category_name,
         products.price,
-        products.images
+        products.image
       FROM products
       WHERE
         products.name ILIKE ${`%${query}%`} OR
@@ -177,12 +177,14 @@ export async function fetchOverviewCardsData(){
 
 }
 
-export async function getUser(email: string) {
-    try {
-      const user = await sql`SELECT * FROM users WHERE email=${email}`;
-      return user.rows[0] as User;
-    } catch (error) {
-      console.error('Failed to fetch user:', error);
-      throw new Error('Failed to fetch user.');
-    }
+export async function getUser(email: string): Promise<User | undefined> {
+  try {
+    console.log("Email que recibe getUser() "+email)
+    const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+    console.log("Se esta haciendo la consulta a la base que retorna "+user.rows[0].email)
+    return user.rows[0];
+  } catch (error) {
+    console.error('Failed to fetch user:', error);
+    throw new Error('Failed to fetch user.');
+  }
 }
