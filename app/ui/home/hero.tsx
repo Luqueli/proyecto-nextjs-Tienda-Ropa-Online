@@ -16,13 +16,12 @@ export default async function Hero() {
             >
               <CarouselContent>
                 {products.map((product) => (
-                  <CarouselItem>
+                  <CarouselItem key={product.name}>
                     <Image 
                       src={product.image}
                       alt={product.name} 
                       height="3144"
-                      width="3144"
-                      key={product.name} 
+                      width="3144" 
                       className="w-full h-full object-cover rounded-lg" />
                   </CarouselItem>
                 )

@@ -15,7 +15,7 @@ export default async function ProductsCards({
         const cartItems = savedCartItems ? JSON.parse(savedCartItems) : [];
 
         // Verificar si el producto ya está en el carrito
-        const indexId = cartItems.findIndex(item => item.id === product.id);
+        const indexId = cartItems.findIndex((item: { id: string; }) => item.id === product.id);
         if (indexId === -1) {
             const item : CartItem ={id: product.id, model: product.name, brand_name: product.brand_name, quantity: 1, unitCost: product.price }
             cartItems.push(item);
