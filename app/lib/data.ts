@@ -60,6 +60,19 @@ export async function fetchProducts() {
     }
 }
 
+export async function fetchProductsByBrand(brand:string) {
+  noStore();
+  try{
+    const data = await sql<Product>`SELECT * FROM products WHERE brand_name=${brand}`;
+    return data.rows;
+  }
+  catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch products data.');
+  }
+}
+
+
 export async function fetchFilteredProducts(
   query: string,
   currentPage: number,

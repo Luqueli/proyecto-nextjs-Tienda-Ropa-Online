@@ -6,9 +6,7 @@ import { CartItem } from '@/app/lib/definitions';
 
 export default function DropdownCart() {
 
-  const savedCartItems = localStorage.getItem('cartItems');
-  
-  const [cartItems, setCartItems] = useState<CartItem[]>(savedCartItems ? JSON.parse(savedCartItems) : []);
+  const [cartItems, setCartItems] = useState<CartItem []>([]);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -17,13 +15,16 @@ export default function DropdownCart() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  // Observar cambios en localStorage
+  // Actualizar el carrito en el primer renderizado y observar cambios en localStorage.
   useEffect(() => {
     const handleStorageChange = () => {
       const savedCartItems = localStorage.getItem('cartItems');
       setCartItems(savedCartItems ? JSON.parse(savedCartItems) : []);
+    
     };
 
+    handleStorageChange()
+    
     window.addEventListener('storage', handleStorageChange);
     return () => {
       window.removeEventListener('storage', handleStorageChange);
@@ -31,15 +32,14 @@ export default function DropdownCart() {
   }, []);
 
   const removePair = (id: string) => {
-    const indexOfItem = cartItems.findIndex(item => item.id === id);
-
-    if (cartItems[indexOfItem].quantity > 1) {
-      const newCartItems = [...cartItems];
+    const indexOfItem = cartItems!.findIndex(item => item.id === id);
+    if (cartItems![indexOfItem].quantity > 1) {
+      const newCartItems = [...cartItems!];
       newCartItems[indexOfItem].quantity -= 1;
       setCartItems(newCartItems);
       localStorage.setItem('cartItems', JSON.stringify(newCartItems));
     } else {
-      const newCartItems = cartItems.filter(item => item.id !== id);
+      const newCartItems = cartItems!.filter(item => item.id !== id);
       setCartItems(newCartItems);
       localStorage.setItem('cartItems', JSON.stringify(newCartItems));
     }
@@ -48,26 +48,13 @@ export default function DropdownCart() {
   const totalAmount = cartItems.reduce((total, item) => total + (item.quantity * item.unitCost), 0);
 
   const handleSubmit = () => {
-    if (cartItems.length!=0){
-      payment(cartItems);  
+    if (cartItems!.length!=0){
+      payment(cartItems!);  
     }
   }
-  
-  // Cierra el carrito si se clickea fuera del mismo
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [dropdownRef]);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative">
       <button onClick={toggleDropdown} className="btn btn-ghost btn-circle">
         <div className="indicator">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
