@@ -11,7 +11,7 @@ export default async function Hero() {
         <div className="container grid gap-6 md:gap-12 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_600px]">
           <div className="grid gap-4">
             <Carousel
-              opts={{ align: "start", loop: true, autoplay: true, duration: 3000 }}
+              opts={{ align: "start", loop: true, duration: 3000 }}
               className="w-full max-w-[500px] h-[400px] md:h-[500px] lg:h-[600px]"
             >
               <CarouselContent>

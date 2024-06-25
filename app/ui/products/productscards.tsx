@@ -40,29 +40,28 @@ export default async function ProductsCards({
                     key={product.id}
                     className="bg-white dark:bg-gray-950 rounded-lg shadow-sm hover:shadow-md transition-shadow"
                 >
-                    <Link href="#" prefetch={false}>
-                        <Image
-                            src={product.image}
-                            alt={product.name}
-                            width={700}
-                            height={380}
-                            className="rounded-t-lg object-cover w-full aspect-square"
-                        />
-                        <div className="p-4">
-                            <h3 className="text-lg font-semibold">{product.name}</h3>
-                            <div className="flex justify-between items-center mt-2">
-                                <h3 className="text-lg font-semibold">{product.category_name}</h3>
-                            </div>
-                            <span className="text-lg font-semibold">${product.price}</span>
+                    <Image
+                        src={product.image}
+                        alt={product.name}
+                        layout="responsive"
+                        width={700}
+                        height={380}
+                        className="rounded-t-lg object-cover w-full aspect-square"
+                    />
+                    <div className="p-4">
+                        <h3 className="text-lg font-semibold">{product.name}</h3>
+                        <div className="flex justify-between items-center mt-2">
+                            <h3 className="text-lg font-semibold">{product.category_name}</h3>
                         </div>
-                        <button className="btn pb-1 pl-2 bg-customCream rounded"
-                            onClick={
-                                () =>handleAddToCart(product)
-                            }
-                        >
-                            Agregar al carrito
-                        </button>
-                    </Link>
+                        <span className="text-lg font-semibold">${product.price}</span>
+                    </div>
+                    <button className="btn pb-1 pl-2 bg-customCream rounded"
+                        onClick={
+                            () =>handleAddToCart(product)
+                        }
+                    >
+                        Agregar al carrito
+                    </button>
                 </div>
             ))}
         </div>
