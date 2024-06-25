@@ -1,3 +1,4 @@
+'use client'
 import { CartItem, Product } from "@/app/lib/definitions";
 import Image from 'next/image';
 export default async function ProductsCards({
@@ -7,7 +8,6 @@ export default async function ProductsCards({
 }){
 
     const handleAddToCart = (product: Product) => {
-        'use client'
         // Obtener los elementos actuales del carrito del localStorage
         const savedCartItems= localStorage.getItem('cartItems');
         const cartItems = savedCartItems ? JSON.parse(savedCartItems) : [];
@@ -24,7 +24,7 @@ export default async function ProductsCards({
         // Actualizar el localStorage
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
-        // Opcional: Emitir un evento personalizado para notificar al DropdownCart
+        // Emitir un evento personalizado para notificar al DropdownCart
         window.dispatchEvent(new Event('storage'));
     };
 
