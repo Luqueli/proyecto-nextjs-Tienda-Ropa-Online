@@ -1,6 +1,7 @@
 import { fetchBrands, fetchCategories, fetchProductById } from '@/app/lib/data'
 import EditProductForm from '@/app/ui/products/edit-form'
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 
 export default async function Page( {params} : {params : {id:string} } ){
 
@@ -19,7 +20,7 @@ export default async function Page( {params} : {params : {id:string} } ){
     <div className="flex justify-center items-center gap-12 p-8 md:p-12">
       
       <div className="hidden md:block">
-        <img src={product.image} alt="Product Image" width={300} height={300} className="rounded-lg shadow-lg" />
+        <Image src={product.image} alt="Product Image" width={300} height={300} className="rounded-lg shadow-lg" />
       </div>
 
       <div className="w-full max-w-md">

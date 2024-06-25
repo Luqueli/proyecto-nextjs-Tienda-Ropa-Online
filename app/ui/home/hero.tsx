@@ -22,6 +22,7 @@ export default async function Hero() {
                       alt={product.name} 
                       height="3144"
                       width="3144"
+                      key={product.name} 
                       className="w-full h-full object-cover rounded-lg" />
                   </CarouselItem>
                 )
