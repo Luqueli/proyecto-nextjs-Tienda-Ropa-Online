@@ -1,7 +1,5 @@
-'use client'
 import { CartItem, Product } from "@/app/lib/definitions";
 import Image from 'next/image';
-import Link from 'next/link'
 export default async function ProductsCards({
     products
 }:{
@@ -9,7 +7,7 @@ export default async function ProductsCards({
 }){
 
     const handleAddToCart = (product: Product) => {
-        
+        'use client'
         // Obtener los elementos actuales del carrito del localStorage
         const savedCartItems= localStorage.getItem('cartItems');
         const cartItems = savedCartItems ? JSON.parse(savedCartItems) : [];
@@ -43,7 +41,6 @@ export default async function ProductsCards({
                     <Image
                         src={product.image}
                         alt={product.name}
-                        layout="responsive"
                         width={700}
                         height={380}
                         className="rounded-t-lg object-cover w-full aspect-square"
