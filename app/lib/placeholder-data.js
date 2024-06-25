@@ -73,8 +73,8 @@ const products = [
         categoryid : categories[1].id,
         categoryname : categories[1].name,
         price : 4000,
-        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719193375/Jordan4BlackCat_rrf7qj.jpg',
-        cloudinary_public_id : 'Jordan4BlackCat_rrf7qj'       
+        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719279875/Jordan4BlackCat_xqrd6r.jpg',
+        cloudinary_public_id : 'Jordan4BlackCat_xqrd6r'       
     },
     {
         name : 'Air Jordan 1 Retro High OG Latte',
@@ -95,8 +95,8 @@ const products = [
         categoryid : categories[1].id,
         categoryname : categories[1].name,
         price : 4000,
-        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719193377/tenis-air-jordan-4-retro-oxidized-green-PNtDJp_ffrs3h.jpg',
-        cloudinary_public_id : 'tenis-air-jordan-4-retro-oxidized-green-PNtDJp_ffrs3h'    
+        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719279967/tenis-air-jordan-4-retro-oxidized-green-PNtDJp_bj3wku.jpg',
+        cloudinary_public_id : 'tenis-air-jordan-4-retro-oxidized-green-PNtDJp_bj3wku'    
     },
     {
         name : 'Air Jordan Retro 11 Retro Low',
@@ -117,8 +117,8 @@ const products = [
         categoryid : categories[0].id,
         categoryname : categories[0].name,
         price : 15000,
-        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719193376/calzado-de-f%C3%BAtbol-fg-de-corte-high-superfly-9-elite-mercurial-dream-speed-sb8gJK_mscovm.webp',
-        cloudinary_public_id : 'calzado-de-fútbol-fg-de-corte-high-superfly-9-elite-mercurial-dream-speed-sb8gJK_mscovm'    
+        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719280029/calzado-de-f%C3%BAtbol-fg-de-corte-high-superfly-9-elite-mercurial-dream-speed-sb8gJK_ccmw7v.webp',
+        cloudinary_public_id : 'calzado-de-fútbol-fg-de-corte-high-superfly-9-elite-mercurial-dream-speed-sb8gJK_ccmw7v'    
     },
     {
         name : 'Botines Nike Mercurial Superfly 9 Elite',
@@ -154,15 +154,15 @@ const products = [
         cloudinary_public_id : 'Botines_Nemeziz_19.2_Terreno_Firme_Rosa_F34384_06_standard_b2xd3g'     
     },
     {
-        name : 'Botines Adidas Copa 20.3',
+        name : 'Botines Adidas Copa 19.3',
         description : 'Botines de fútbol cancha 11.',
         brandname :  brands[2].name,
         brandid :  brands[2].id,
         categoryid : categories[0].id,
         categoryname : categories[0].name,
         price : 12000,
-        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719193374/5da07bd7e3f87-1357-4_hnwut3.jpg',
-        cloudinary_public_id : '5da07bd7e3f87-1357-4_hnwut3'     
+        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719280175/5da07bd7e3f87-1357-4_za1itr.jpg',
+        cloudinary_public_id : '5da07bd7e3f87-1357-4_za1itr'   
     },
     {
         name : 'Sabrina 2 Court Vision',
@@ -183,8 +183,8 @@ const products = [
         categoryid : categories[2].id,
         categoryname : categories[2].name,
         price : 30000,
-        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719193376/lebron-xxi-basketball-shoes-DjB9tK_fv9a04.webp',
-        cloudinary_public_id : 'lebron-xxi-basketball-shoes-DjB9tK_fv9a04'
+        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719280235/lebron-xxi-basketball-shoes-DjB9tK_rhlm2n.webp',
+        cloudinary_public_id : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719280235/lebron-xxi-basketball-shoes-DjB9tK_rhlm2n.webp'
     },
     {
         name : 'Nike Kevin Durant 17 x Alchemist',
@@ -216,8 +216,8 @@ const products = [
         categoryid : categories[3].id,
         categoryname : categories[3].name,
         price : 499999,
-        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_nose/v1719194614/reebokNanoX_rjh8nt.jpg',
-        cloudinary_public_id : 'reebokNanoX_rjh8nt'
+        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_nose/v1719280289/reebokNanoX_zlayep.jpg',
+        cloudinary_public_id : 'reebokNanoX_zlayep'
     },
     {
         name : 'Reebok Nano X3 Gum Bottoms',
@@ -227,8 +227,8 @@ const products = [
         categoryid : categories[3].id,
         categoryname : categories[3].name,
         price : 325000,
-        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_nose/v1719194989/reebok-nano-x-training-shoes-black---true-grey_164544_l7ltbu.jpg',
-        cloudinary_public_id : 'reebok-nano-x-training-shoes-black---true-grey_164544_l7ltbu'
+        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_nose/v1719280331/reebok-nano-x-training-shoes-black---true-grey_164544_skxawc.jpg',
+        cloudinary_public_id : 'reebok-nano-x-training-shoes-black---true-grey_164544_skxawc'
     },
     {
         name : 'Nike Metcon 9 AMP',
