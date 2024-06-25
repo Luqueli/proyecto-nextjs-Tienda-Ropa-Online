@@ -37,7 +37,7 @@ En cuanto a cómo fue nuestro trabajo más allá de lo técnico, nos juntamos ba
 - Sacar tipados any de algunas functions:
 Un caso en concreto es cuando usamos la API de terceros Cloudinary. Al querer subir una imágen con la API, recibimos una promesa que en el reject pasa como parámetro un valor de tipo UploadApiErrorResponse, y en el resolve, un valor de tipo UploadApiResponse. Buscamos soluciones en internet, intentando definir un tipo propio en el archivo definitions.ts, pero no pudimos. Lo solucionamos declarando la respuesta e tipo any.
 
-- Al agregar un producto al carrito de compras se esta produciendo un efecto que causa que la pagina vuelva a su parte superior.
+- Al agregar un producto al carrito de compras se esta produciendo un efecto que causa que la pagina vuelva a su parte superior. (Corregido)
 - Ocultar el botón Cerrar Sesión cuando el admin no esta loggeado haciendo uso de hooks useSession/getSession.
 - Guardar las compras que los usuarios realizan por mercado pago en la base de datos controlando el flujo total de mercado pago para saber si una compra fue exitosa o no, solo por registro o para que el admin las pueda visualizar?
 El footer quedó como parte estética y como parte del layout, ya que no implementamos nada.
