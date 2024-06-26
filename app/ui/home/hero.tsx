@@ -8,8 +8,8 @@ export default async function Hero() {
   return (
     <div className="w-full">
       <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="container grid gap-6 md:gap-12 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_600px]">
-          <div className="grid gap-4">
+        <div className="container grid grid-cols-1 gap-8 px-4 md:px-6 lg:grid-cols-2">
+          <div className="order-2 lg:order-1">
             <Carousel
               className="w-full max-w-[500px] h-[400px] md:h-[500px] lg:h-[600px]"
             >
@@ -30,12 +30,12 @@ export default async function Hero() {
               <CarouselNext />
             </Carousel>
           </div>
-          <div className="flex flex-col justify-center space-y-6">
+          <div className="order-1 lg:order-2 flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl">
                 TNDA - Tienda de zapatillas para todos los momentos de la vida.
               </h1>
-              <p className="text-slate-500 md:text-xl dark:text-slate-400">
+              <p className="max-w-[600px] text-muted-foreground md:text-xl">
                 Explora nuestra colección de zapatillas de las marcas más populares y encuentra el estilo perfecto para
                 ti.
               </p>

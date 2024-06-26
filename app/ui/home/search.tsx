@@ -11,14 +11,11 @@ export default function Search(){
 
     const handleSearch = useDebouncedCallback( (term) => {
         const params = new URLSearchParams(searchParams);
-
-
         if (term) {
             params.set('query', term);
         } else {
             params.delete('query');
         }
-        console.log(term);
         replace(`${pathname}?${params.toString()}`);
     },300);
 
