@@ -62,8 +62,8 @@ const products = [
         categoryid : categories[1].id,
         categoryname : categories[1].name,
         price : 4000,
-        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719193375/Jordan3Palomino_q8fbf6.jpg',
-        cloudinary_public_id : 'Jordan3Palomino_q8fbf6'
+        image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719263958/q9sjkyidlf8zjfhxz6js.jpg',
+        cloudinary_public_id : 'q9sjkyidlf8zjfhxz6js'
     },
     {
         name : 'Air Jordan 4 Retro Black Cat',
