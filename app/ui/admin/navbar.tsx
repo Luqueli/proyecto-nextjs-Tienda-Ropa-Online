@@ -3,8 +3,6 @@ import Link  from 'next/link'
 import DropdownCart from '@/app/ui/cart/dropdownCart';
 import { logOut } from '@/app/lib/actions';
 
-import { useSession } from "next-auth/react";
-
 
 export default async function Navbar(){
 
@@ -13,7 +11,9 @@ export default async function Navbar(){
     return(
         <div className="navbar bg-customCream">
             <div className="navbar-start">
-                <a className="btn btn-ghost text-xl font-bold tracking-widest ml-10">T N D A.</a>
+                <Link href={"/"}>
+                    <div className="btn btn-ghost text-xl font-bold tracking-widest ml-10">T N D A.</div>
+                </Link>
             </div>
 
             <div className="navbar-center hidden lg:flex font-bold">
@@ -53,24 +53,20 @@ export default async function Navbar(){
 
             <div className="navbar-end mr-10">
                 <DropdownCart/>
-            </div>
-            {true &&(
+            </div> 
                 
-                <>    
-                    <form action={ async () => { 
-                        'use server'
-                        const callResponse = await logOut()                                            
-                        }}> 
-                        
-                        <button
-                            type="submit"
-                            className="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
-                        >
-                                Cerrar Sesión
-                        </button>
-                    </form>
-                </>
-            )} 
+                <form action={ async () => { 
+                    'use server'
+                    const callResponse = await logOut()                                            
+                }}> 
+                    
+                <button
+                    type="submit"
+                    className="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"                        >
+                        Cerrar Sesión
+                </button>
+                </form>
+            
         </div>
     )
 }
