@@ -380,19 +380,18 @@ export async function payment(cartItems: CartItem []){
     
     // Crear un arreglo para almacenar los items
     const items = cartItems.map(item => ({
-        id: item.id.toString(),
-        title: `${item.brand_name} ${item.model}`,
+        id: `${item.brand_name} ${item.model}`,
+        title: "Compra de zapatillas",
         quantity: Number(item.quantity),
         unit_price: Number(item.unitCost),
         currency_id : "ARS"
     }));
 
-    //Colocar las urls del deploy en vercel!!.
     const result= await preference.create({
         body : {
             items: items,
             back_urls: {
-                success: "",
+                success: "https://proyecto-nextjs-tienda-ropa-online.vercel.app/",
                 failure: "",
                 pending: "",
             },
