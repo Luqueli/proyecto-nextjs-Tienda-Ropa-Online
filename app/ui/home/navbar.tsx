@@ -10,7 +10,9 @@ export default async function Navbar(){
     return(
         <div className="navbar bg-customCream">
             <div className="navbar-start">
-                <a className="btn btn-ghost text-xl font-bold tracking-widest ml-10">T N D A.</a>
+                <Link href={"/"}>
+                    <div className="btn btn-ghost text-xl font-bold tracking-widest ml-10">T N D A.</div>
+                </Link>
             </div>
 
             <div className="navbar-center hidden lg:flex font-bold">
@@ -36,10 +38,8 @@ export default async function Navbar(){
                                         >
                                             {brand.name}
                                         </Link>
-                                </li>
-
-                                )
-                                }
+                                    </li>
+                                )}
                             )}
                             </ul>
                         </details>
@@ -55,3 +55,4 @@ export default async function Navbar(){
         </div>
     )
 }   
+
