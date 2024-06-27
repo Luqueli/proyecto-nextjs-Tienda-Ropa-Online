@@ -9,6 +9,7 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user;
       const isOnAdmin = nextUrl.pathname.startsWith('/admin');
       const isOnLogin = nextUrl.pathname.startsWith('/login');
+      
       if (isOnAdmin){
         if(isLoggedIn) { 
             return true

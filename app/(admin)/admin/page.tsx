@@ -11,16 +11,17 @@ export default async function Page(){
     } = await fetchOverviewCardsData();
 
     return(
-        <div className="flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8 grid grid-cols-2 bg-customCream md:grid-cols-4 gap-4">
+    
+      <div className="flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8 grid grid-cols-2 bg-customCream md:grid-cols-4 gap-4">
         <Card>
-        <CardContent className="flex items-center justify-between">
-          <div>
-            <h3 className="text-lg font-medium">Cantidad de productos</h3>
-            <p className="text-4xl font-bold">{numberOfProducts}</p>
-          </div>
-          <PackageIcon/>
-        </CardContent>
-      </Card>
+          <CardContent className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-medium">Cantidad de productos</h3>
+              <p className="text-4xl font-bold">{numberOfProducts}</p>
+            </div>
+            <PackageIcon/>
+          </CardContent>
+        </Card>
       <Card>
         <CardContent className="flex items-center justify-between">
           <div>
@@ -49,8 +50,6 @@ export default async function Page(){
         </CardContent>
       </Card>
     </div>
-  
-      
     )
 }
 function Grid3x3Icon() {

@@ -1,6 +1,9 @@
 import { fetchBrands } from '@/app/lib/data'
 import Link  from 'next/link'
 import DropdownCart from '@/app/ui/cart/dropdownCart';
+import { logOut } from '@/app/lib/actions';
+
+import { useSession } from "next-auth/react";
 
 
 export default async function Navbar(){
@@ -38,8 +41,7 @@ export default async function Navbar(){
                                         </Link>
                                 </li>
 
-                                )
-                                }
+                            )}
                             )}
                             </ul>
                         </details>
@@ -51,7 +53,24 @@ export default async function Navbar(){
 
             <div className="navbar-end mr-10">
                 <DropdownCart/>
-            </div>  
+            </div>
+            {true &&(
+                
+                <>    
+                    <form action={ async () => { 
+                        'use server'
+                        const callResponse = await logOut()                                            
+                        }}> 
+                        
+                        <button
+                            type="submit"
+                            className="w-full px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
+                        >
+                                Cerrar Sesión
+                        </button>
+                    </form>
+                </>
+            )} 
         </div>
     )
-}   
+}

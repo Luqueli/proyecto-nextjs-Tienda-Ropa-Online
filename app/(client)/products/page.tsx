@@ -33,11 +33,6 @@ export default async function Products({
     if(!products.length)
       return <NoProducts/>
   }
-
-
-
-
-
 }
 
 
