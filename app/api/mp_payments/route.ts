@@ -13,8 +13,6 @@ export async function POST(req: NextRequest) {
     */
     const payment= await new Payment(client).get({id :body.data.id});
 
-    
-    
     console.log("body :", body);
     return Response.json({success: true});
 }

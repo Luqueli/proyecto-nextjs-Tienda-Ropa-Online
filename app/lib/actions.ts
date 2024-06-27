@@ -397,5 +397,6 @@ export async function payment(cartItems: CartItem []){
             },
         },
     })
+    console.log(result)
     redirect(result.init_point!) 
 }
