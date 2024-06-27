@@ -15,13 +15,11 @@ export default function Layout({
           <body className="bg-customCream">
             <Navbar />
             <div className="w-[70%] min-h-[70vh] bg-customCream mx-auto p-4">
-              <Topnav key="topnav" />
                   {children} 
             </div>
             <Footer />  
           </body>
         </html>
-
 
     );
   }

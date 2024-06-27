@@ -2,7 +2,7 @@ import { fetchBrands } from '@/app/lib/data'
 import Link  from 'next/link'
 import DropdownCart from '@/app/ui/cart/dropdownCart';
 import { logOut } from '@/app/lib/actions';
-
+import Topnav from '@/app/ui/admin/topnav'
 
 export default async function Navbar(){
 
@@ -12,42 +12,13 @@ export default async function Navbar(){
         <div className="navbar bg-customCream">
             <div className="navbar-start">
                 <Link href={"/"}>
-                    <div className="btn btn-ghost text-xl font-bold tracking-widest ml-10">T N D A.</div>
+                    <div className= "btn btn-ghost text-xl font-bold tracking-widest ml-10">T N D A.</div>
                 </Link>
+                <h1 className="text-xl font-bold tracking-widest ml-10">Admin Dashboard</h1>
             </div>
 
-            <div className="navbar-center hidden lg:flex font-bold">
-                <ul className="menu menu-horizontal px-1">
-                    <li>
-                        <Link
-                            href="/products"
-                        >
-                            SHOP
-                        </Link>
-                    </li>
-                    <li>
-                        <details>
-                            <summary>MARCAS</summary>
-                            <ul className="p-2">
-
-                            {brands.map((brand) => {
-                                const link = `/products?query=${brand.name}`
-                                return(
-                                    <li key={brand.name}>
-                                        <Link
-                                            href= {link}
-                                        >
-                                            {brand.name}
-                                        </Link>
-                                </li>
-
-                            )}
-                            )}
-                            </ul>
-                        </details>
-                    </li>
-
-                </ul>
+            <div className="navbar-center font-bold ml-10">                    
+                <Topnav />
             </div>
 
 

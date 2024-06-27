@@ -23,9 +23,8 @@ const links = [
 export default function Topnav() {
   const pathname = usePathname();
   return (
-    <div className="bg-customCream text-black p-6">
-      <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-      <nav className="flex gap-4 mb-6">
+    <div className="bg-customCream text-black p-3  text-center items-center">
+      <nav className="flex gap-4 mb-6 mt-4">
         {links.map( (link) => {
           return(
                 <Link 
