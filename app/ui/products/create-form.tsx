@@ -168,7 +168,7 @@ export default function CreateForm({
           name="image"
           type="file" 
           accept=".jpg,.jpeg,.png"
-          onClick={() => open()}
+          //onClick={() => open()}
           aria-describedby="image-error"
         />
 

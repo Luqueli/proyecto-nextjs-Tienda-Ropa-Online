@@ -54,7 +54,7 @@ export default async function Navbar(){
             <div className="navbar-end mr-10">
                 <DropdownCart/>
             </div> 
-                
+
                 <form action={ async () => { 
                     'use server'
                     const callResponse = await logOut()                                            
