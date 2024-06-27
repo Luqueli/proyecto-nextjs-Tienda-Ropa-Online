@@ -43,12 +43,7 @@ export default async function Page(){
                         <td className="py-3 px-4">{product.category_name}</td>
                         <td className="py-3 px-4">${product.price.toFixed(2)}</td>
                         <td className="py-3 px-4 flex justify-center gap-2">
-
-                        <Link
-                          href={`/admin/products/${product.id}/edit`} 
-                        >
-                          <EditProductButton />
-                        </Link>
+                        <EditProductButton id={product.id} />
                         <DeleteButton id={product.id} cloudinary_public_id={product.cloudinary_public_id} />
                         </td>
                     </tr>
