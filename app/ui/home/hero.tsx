@@ -1,6 +1,6 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/app/ui/home/carousel"
 import Link from "next/link"
-import { fetchProducts, fetchProductsImages } from "@/app/lib/data"
+import { fetchProducts} from "@/app/lib/data"
 import Image from "next/image"
 
 export default async function Hero() {

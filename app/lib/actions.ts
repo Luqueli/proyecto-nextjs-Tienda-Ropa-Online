@@ -380,8 +380,9 @@ export async function payment(cartItems: CartItem []){
     
     // Crear un arreglo para almacenar los items
     const items = cartItems.map(item => ({
-        id: `${item.brand_name} ${item.model}`,
-        title: "Compra de zapatillas",
+        id: `${item.productName}`,
+        title: "mp purchase",
+        productName: `${item.productName}`,
         quantity: Number(item.quantity),
         unit_price: Number(item.unitCost),
         currency_id : "ARS"
@@ -397,6 +398,5 @@ export async function payment(cartItems: CartItem []){
             },
         },
     })
-    console.log(result)
-    redirect(result.init_point!) 
+    redirect(result.sandbox_init_point!) 
 }

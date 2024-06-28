@@ -159,7 +159,57 @@ async function seedProducts(client){
         console.error('Error seeding products:', error);
         throw error;
     }
+}
 
+async function createPurchaseTable(client){
+  try{
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
+    const createPurchaseTable= await client.sql`
+    CREATE TABLE IF NOT EXISTS purchase(
+       purchaseID SERIAL PRIMARY KEY,
+       timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,       
+       paymentMPID INT NOT NULL,
+       buyerEmail VARCHAR(255) NOT NULL,
+       totalCost DECIMAL(10, 2) NOT NULL
+    );
+    `;
+    console.log("Table purchases created.");
+    return {
+      createPurchaseTable
+    };
+
+  }
+  catch(error){
+    console.log("Error creating the historial of purchase");
+    throw error;
+  }
+}
+
+async function createPurchasesDetailTable(client){
+  try{
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    
+    const createPurchaseDetailTable= await client.sql`
+    CREATE TABLE IF NOT EXISTS purchaseDetail(
+       detaliID SERIAL PRIMARY KEY,
+       purchase_id SERIAL REFERENCES purchase(purchaseID) ON DELETE CASCADE,
+       product_id UUID REFERENCES products(id),
+       productName VARCHAR(255) NOT NULL,
+       quantity INT NOT NULL,
+       itemPrice DECIMAL(10, 2) NOT NULL
+      );
+    `;
+
+    console.log("Table detailsPurchase created.");
+    return {
+      createPurchaseDetailTable
+    };
+
+
+  }catch(error){
+    console.log
+  }
 }
 
 
@@ -170,6 +220,8 @@ async function main() {
   await seedCategories(client);
   await seedBrands(client);
   await seedProducts(client);
+  await createPurchaseTable(client);
+  await createPurchasesDetailTable(client);
   await client.end();
 }
 

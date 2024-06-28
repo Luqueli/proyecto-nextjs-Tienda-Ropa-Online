@@ -25,10 +25,10 @@ export type Brand = {
   name : string
 }
 
-export type CartItem= {
+export type CartItem = {
   id : string,
-  model: string,
-  brand_name : string,
+  brandName: string,
+  productName:string,
   quantity : number,
   unitCost : number,
 }

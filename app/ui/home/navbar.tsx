@@ -25,7 +25,7 @@ export default async function Navbar(){
                         </Link>
                     </li>
                     <li>
-                        <details>
+                    <details>
                             <summary>MARCAS</summary>
                             <ul className="p-2">
 

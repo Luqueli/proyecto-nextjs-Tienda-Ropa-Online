@@ -32,16 +32,22 @@ export default function DropdownCart() {
   }, []);
 
   const removePair = (id: string) => {
+
     const indexOfItem = cartItems!.findIndex(item => item.id === id);
+
     if (cartItems![indexOfItem].quantity > 1) {
+
       const newCartItems = [...cartItems!];
       newCartItems[indexOfItem].quantity -= 1;
       setCartItems(newCartItems);
       localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+    
     } else {
+      
       const newCartItems = cartItems!.filter(item => item.id !== id);
       setCartItems(newCartItems);
       localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+      
     }
   };
 
@@ -64,13 +70,13 @@ export default function DropdownCart() {
         </div>
       </button>
       {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden z-10">
+        <div className="absolute right-0 mt-2 w-80 bg-customCream border border-gray-200 shadow-lg rounded-lg overflow-hidden z-10">
           <div className="p-4 bg-customCream text-black font-semibold">Carrito</div>
           <div className="p-4 max-h-60 overflow-y-auto">
             {cartItems.map(item => (
               <div key={item.id} className="flex justify-between items-center my-2">
                 <div className="flex flex-col">
-                  <span className="font-semibold">{item.brand_name} {item.model}</span>
+                  <span className="font-semibold">{item.brandName} {item.productName}</span>
                   <span className="text-sm">Pares: {item.quantity}</span>
                 </div>
                 <div className="flex items-center">
