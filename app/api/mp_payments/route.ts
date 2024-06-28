@@ -11,8 +11,8 @@ export async function POST(req: NextRequest) {
         return Response.json({success:  false});
     }
     */
-    //const payment= await new Payment(client).get({id :body.data.id});
+    const payment= await new Payment(client).get({id :body.data.id});
 
-    //console.log("body :", body);
+    console.log("payment :", payment);
     return Response.json({success: true});
 }
