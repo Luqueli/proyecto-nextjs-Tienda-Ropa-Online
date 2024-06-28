@@ -398,6 +398,5 @@ export async function payment(cartItems: CartItem []){
             },
         },
     })
-    
     redirect(result.sandbox_init_point!) 
 }

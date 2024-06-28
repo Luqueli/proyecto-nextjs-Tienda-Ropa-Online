@@ -1,27 +1,13 @@
-'use server'
-import { NextRequest } from "next/server";
-import {MercadoPagoConfig,Payment} from "mercadopago";
+import type {NextRequest} from "next/server";
 
-export async function POST(req: NextRequest) {
-    
-    const client = new MercadoPagoConfig({accessToken : process.env.MP_ACCESS_TOKEN!});
+import {MercadoPagoConfig, Payment} from "mercadopago";
 
-    try{
-        const body = await req.json().then((data) => data as {data : {id : string}});
-        const secret = req.headers.get("x-signature");
-            
-        if (secret !== process.env.SECRET_PAYMENT_MP){
-            return Response.json({success:  false});
-        }
-        
-        const payment= await new Payment(client).get({id :body.data.id});
-        console.log("payment: ",payment)
+const mercadopago = new MercadoPagoConfig({accessToken: process.env.MP_ACCESS_TOKEN!});
 
-    } catch (error){
-        return {
-            message: 'Database Error: Failed to Create Category.',
-        };
-    }
+export async function POST(request: NextRequest) {
+  const body = await request.json().then((data) => data as {data: {id: string}});
 
-    return Response.json({success: true});
+  const payment = await new Payment(mercadopago).get({id: body.data.id});
+  console.log("payment: ",payment)
+  return Response.json({success: true});
 }
