@@ -15,7 +15,7 @@ export default async function ProductsCards({
         // Verificar si el producto ya está en el carrito
         const indexId = cartItems.findIndex((item: { id: string; }) => item.id === product.id);
         if (indexId === -1) {
-            const item : CartItem ={id: product.id, model: product.name, brand_name: product.brand_name, quantity: 1, unitCost: product.price }
+            const item : CartItem ={id: product.id, productName: product.name, brandName: product.brand_name, quantity: 1, unitCost: product.price }
             cartItems.push(item);
         } else {
             cartItems[indexId].quantity += 1;

@@ -18,9 +18,6 @@ export async function POST(req: NextRequest) {
         return {
             message: 'Error: failed to get payment info.',
         };
-
     }
-
-
     return Response.json({success: true});
 }
