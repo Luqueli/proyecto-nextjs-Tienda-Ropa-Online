@@ -1,11 +1,11 @@
 import type {NextRequest} from "next/server";
 import {MercadoPagoConfig, Payment} from "mercadopago";
 import {createPurchase} from '@/app/lib/actions'
-import {CartItem} from '@/app/lib/definitions'
 
 const mercadopago = new MercadoPagoConfig({accessToken: process.env.MP_ACCESS_TOKEN!});
 
 export async function POST(request: NextRequest) {
+
   const body = await request.json().then((data) => data as {data: {id: string}});  
   console.log("body: ", body)
   const payment = new Payment(mercadopago)
@@ -16,8 +16,7 @@ export async function POST(request: NextRequest) {
 
   const paymentInfo = await payment.get({id: body.data.id})
     .then(paymentInfo => {
-         
-
+      console.log(paymentInfo);
         if (paymentInfo) {
             items = paymentInfo.additional_info?.items;
             payerEmail = paymentInfo.payer?.email!

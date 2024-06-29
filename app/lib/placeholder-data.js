@@ -61,7 +61,7 @@ const products = [
         brandid :  brands[0].id,
         categoryid : categories[1].id,
         categoryname : categories[1].name,
-        price : 4000,
+        price : 10,
         image : 'https://res.cloudinary.com/dch0yp6xx/image/upload/t_Card/v1719263958/q9sjkyidlf8zjfhxz6js.jpg',
         cloudinary_public_id : 'q9sjkyidlf8zjfhxz6js'
     },

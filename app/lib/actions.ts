@@ -393,7 +393,7 @@ export async function payment(cartItems: CartItem []){
             items: items,
         },
     })
-    redirect(result.init_point!) 
+    redirect(result.sandbox_init_point!) 
 }
 
 
@@ -408,7 +408,7 @@ export async function createPurchase(items : any, payerEmail : string, totalAmou
         INSERT INTO purchase (buyerEmail, totalCost)
         VALUES (${payerEmail}, ${totalAmount})
         RETURNING purchaseID
-        `;
+        `;  
 
         const purchaseIdv2 = data.rows[0].purchaseid;
         console.log("Compra creada")
