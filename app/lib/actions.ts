@@ -423,7 +423,7 @@ export async function createPurchase(items : any, payerEmail : string, totalAmou
 
     } catch (error){
         return {
-            message: 'Database Error: Failed to Create Category.',
+            message: 'Database Error: Failed to Create Purchase.',
         };
 
     }
