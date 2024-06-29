@@ -20,6 +20,8 @@
     "@vercel/postgres": "^0.8.0",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
+    "cloudflare": "^3.4.0",
+    "cloudflared": "^0.5.2",
     "cloudinary": "^2.2.0",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",

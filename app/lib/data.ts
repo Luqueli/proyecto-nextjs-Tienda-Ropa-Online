@@ -4,6 +4,8 @@ import {
     Category,
     Product,
     User,
+    Purchase,
+    PurchaseDetail,
  } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 const ITEMS_PER_PAGE = 6;
@@ -198,4 +200,47 @@ export async function getUser(email: string): Promise<User | undefined> {
     console.error('Failed to fetch user:', error);
     throw new Error('Failed to fetch user.');
   }
+}
+
+export async function fetchPurchases(){
+  noStore();
+  try {
+    const data = await sql<Purchase>`
+    SELECT
+        purchaseID,
+        to_char(timestamp, 'YYYY-MM-DD HH24:MI:SS') as timestamp,
+        buyerEmail,
+        totalCost 
+    FROM purchase`;
+    return data.rows;
+  } catch (error) {
+    console.error('Failed to fetch purchase:', error);
+    throw new Error('Failed to fetch purchases.');
+  }
+  
+}
+
+export async function fetchPurchasesDetails(id : string){
+  noStore();
+  try {
+    const data = await sql<PurchaseDetail>`
+
+      SELECT 
+        detaliID,
+        purchase_id,
+        productName,
+        quantity,
+        itemPrice
+      FROM 
+          purchaseDetail
+      WHERE 
+          purchase_id = ${id}`
+    ;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Failed to fetch purchase:', error);
+    throw new Error('Failed to fetch purchases details.');
+  }
+  
 }

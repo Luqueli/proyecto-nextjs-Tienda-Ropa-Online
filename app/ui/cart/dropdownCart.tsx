@@ -70,9 +70,9 @@ export default function DropdownCart() {
         </div>
       </button>
       {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-customCream border border-gray-200 shadow-lg rounded-lg overflow-hidden z-10">
+        <div className="absolute right-0 mt-2 w-80 bg-Cream border border-gray-200 shadow-lg rounded-lg overflow-hidden z-10">
           <div className="p-4 bg-customCream text-black font-semibold">Carrito</div>
-          <div className="p-4 max-h-60 overflow-y-auto">
+          <div className="p-4 max-h-60 overflow-y-auto bg-white">
             {cartItems.map(item => (
               <div key={item.id} className="flex justify-between items-center my-2">
                 <div className="flex flex-col">

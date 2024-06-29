@@ -17,6 +17,10 @@ const links = [
     name: 'Categories', 
     href: '/admin/categories'
   },
+  { 
+    name: 'Compras aprobadas', 
+    href: '/admin/compras'
+  },
 ];
 
 

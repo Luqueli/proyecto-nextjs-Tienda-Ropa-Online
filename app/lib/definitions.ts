@@ -30,5 +30,23 @@ export type CartItem = {
   brandName: string,
   productName:string,
   quantity : number,
-  unitCost : number,
+  unitCost: number,
 }
+
+export type Purchase = {
+  purchaseid : string,
+  buyeremail: string,
+  timestamp : string,
+  totalcost : number,
+  items: CartItem[]
+}
+
+
+export type PurchaseDetail = {
+  detaliid : string,
+  purchase_id: string,
+  productname : string,
+  quantity : number,
+  itemprice: number
+}
+

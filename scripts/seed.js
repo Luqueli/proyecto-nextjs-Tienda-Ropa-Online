@@ -170,7 +170,6 @@ async function createPurchaseTable(client){
     CREATE TABLE IF NOT EXISTS purchase(
        purchaseID SERIAL PRIMARY KEY,
        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,       
-       paymentMPID INT NOT NULL,
        buyerEmail VARCHAR(255) NOT NULL,
        totalCost DECIMAL(10, 2) NOT NULL
     );
@@ -195,7 +194,6 @@ async function createPurchasesDetailTable(client){
     CREATE TABLE IF NOT EXISTS purchaseDetail(
        detaliID SERIAL PRIMARY KEY,
        purchase_id SERIAL REFERENCES purchase(purchaseID) ON DELETE CASCADE,
-       product_id UUID REFERENCES products(id),
        productName VARCHAR(255) NOT NULL,
        quantity INT NOT NULL,
        itemPrice DECIMAL(10, 2) NOT NULL
