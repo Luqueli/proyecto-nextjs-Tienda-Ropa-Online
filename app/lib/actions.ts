@@ -413,9 +413,10 @@ export async function createPurchase(items : any, payerEmail : string, totalAmou
         const purchaseIdv2 = data.rows[0].purchaseid;
         console.log("Compra creada")
         // Por cada item (producto,cantidad) del carrito, creo un detalle.
+
         await Promise.all(items.map(async (item : any) => {
 
-            const data = sql`
+            const data = await sql`
             INSERT INTO purchaseDetail(purchase_id, productName, quantity, itemPrice)
             VALUES (${purchaseIdv2}, ${item.id}, ${item.quantity}, ${(item.quantity*item.unit_price)})
             `;

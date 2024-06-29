@@ -1,11 +1,6 @@
-import {Button} from '@/app/ui/button'
 import React from "react"
 import {fetchPurchases,fetchPurchasesDetails } from '@/app/lib/data'
-import {Purchase, PurchaseDetail} from '@/app/lib/definitions'
 import {PurchaseDetails} from '@/app/ui/admin/product-details'
-
-
-
 
 
 export default async function Compras(){
