@@ -2,23 +2,10 @@ import {Button} from '@/app/ui/button'
 import React from "react"
 import {fetchPurchases,fetchPurchasesDetails } from '@/app/lib/data'
 import {Purchase, PurchaseDetail} from '@/app/lib/definitions'
-import { useState, useEffect } from 'react';
+import {PurchaseDetails} from '@/app/ui/admin/product-details'
 
 
-export  async function PurchaseDetails({id}: {id : string}){
-    const details = await fetchPurchasesDetails(id);
-    return(
-        <>
-            {details.map((detail) => (
-                <ul key={detail.detaliid}>
-                    <li className="py-2 px-3">{detail.productname} - <b>Cantidad </b>{detail.quantity}</li>
-                </ul>
-            )
-                )
-            }
-        </>
-    )
-}
+
 
 
 export default async function Compras(){
