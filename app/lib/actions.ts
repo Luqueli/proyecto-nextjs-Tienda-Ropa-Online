@@ -391,8 +391,15 @@ export async function payment(cartItems: CartItem []){
     const result= await preference.create({
         body : {
             items: items,
+            back_urls: {
+                "success": "https://www.tu-sitio/success",
+                "failure": "http://www.tu-sitio/failure",
+                "pending": "http://www.tu-sitio/pending"
+            },
+            auto_return : "approved",
         },
-    })
+        }
+    )
     redirect(result.init_point!) 
 }
 
