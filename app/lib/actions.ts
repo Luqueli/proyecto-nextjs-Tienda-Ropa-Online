@@ -392,9 +392,9 @@ export async function payment(cartItems: CartItem []){
         body : {
             items: items,
             back_urls: {
-                "success": "https://www.tu-sitio/success",
-                "failure": "http://www.tu-sitio/failure",
-                "pending": "http://www.tu-sitio/pending"
+                "success": "https://proyecto-nextjs-tienda-ropa-online.vercel.app/",
+                "failure": "https://proyecto-nextjs-tienda-ropa-online.vercel.app/products",
+                "pending": "https://proyecto-nextjs-tienda-ropa-online.vercel.app/"
             },
             auto_return : "approved",
         },
