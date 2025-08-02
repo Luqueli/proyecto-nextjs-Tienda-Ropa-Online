@@ -18,6 +18,9 @@ export type Product = {
 export type Category = {
   id: string;
   name: string;
+  description: string;
+  image : string,
+  cloudinary_public_id : string
 };
 
 export type Brand = {

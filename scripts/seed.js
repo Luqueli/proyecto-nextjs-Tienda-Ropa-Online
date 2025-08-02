@@ -51,7 +51,10 @@ async function seedCategories(client){
         const createTable = await client.sql`
           CREATE TABLE IF NOT EXISTS categories (
             id SERIAL PRIMARY KEY,
-            name VARCHAR(255) NOT NULL
+            name VARCHAR(255) NOT NULL,
+            description VARCHAR(255),
+            image TEXT,
+            cloudinary_public_id TEXT
           );
         `;
     
@@ -61,8 +64,13 @@ async function seedCategories(client){
         const insertedCategories= await Promise.all(
           categories.map(async (category) => {
             return client.sql`
-            INSERT INTO categories (name)
-            VALUES (${category.name});
+            INSERT INTO categories (name,description,image,cloudinary_public_id)
+            VALUES (
+              ${category.name},
+              ${category.description},
+              ${category.image},
+              ${category.cloudinary_public_id}
+            );
           `;
           }),
         );

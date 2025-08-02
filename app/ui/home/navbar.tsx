@@ -1,58 +1,27 @@
-import { fetchBrands } from '@/app/lib/data'
+import { fetchBrands, fetchCategories } from '@/app/lib/data'
 import Link  from 'next/link'
 import DropdownCart from '@/app/ui/cart/dropdownCart';
-
+import Dropdowns from '@/app/ui/home/dropdowns';
 
 export default async function Navbar(){
 
     const brands = await fetchBrands();
+    const categories = await fetchCategories();
 
     return(
-        <div className="navbar bg-customCream">
-            <div className="navbar-start">
-                <Link href={"/"}>
-                    <div className="btn btn-ghost text-xl font-bold tracking-widest ml-10">T N D A.</div>
-                </Link>
+      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <div className="container flex h-16 items-center justify-between px-4 md:px-6">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="h-8 w-8 rounded-full bg-black flex items-center justify-center">
+              <span className="text-white font-bold text-sm">T</span>
             </div>
-
-            <div className="navbar-center hidden lg:flex font-bold">
-                <ul className="menu menu-horizontal px-1">
-                    <li>
-                        <Link
-                            href="/products"
-                        >
-                            SHOP
-                        </Link>
-                    </li>
-                    <li>
-                    <details>
-                            <summary>MARCAS</summary>
-                            <ul className="p-2">
-
-                            {brands.map((brand) => {
-                                const link = `/products?query=${brand.name}`
-                                return(
-                                    <li key={brand.name}>
-                                        <Link
-                                            href= {link}
-                                        >
-                                            {brand.name}
-                                        </Link>
-                                    </li>
-                                )}
-                            )}
-                            </ul>
-                        </details>
-                    </li>
-
-                </ul>
-            </div>
-
-
-            <div className="navbar-end mr-10">
-                <DropdownCart/>
-            </div>  
+            <span className="font-bold text-xl">TNDA</span>
+          </Link>
+          <Dropdowns brands={brands} categories={categories} />
+          <DropdownCart/>
         </div>
+      </header>
     )
 }   
 
