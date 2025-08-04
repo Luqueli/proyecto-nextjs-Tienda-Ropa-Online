@@ -10,11 +10,11 @@ const links = [
     href: '/admin'
   },
   {
-    name: 'Products',
+    name: 'Productos',
     href: '/admin/products',
   },
   { 
-    name: 'Categories', 
+    name: 'Categorías', 
     href: '/admin/categories'
   },
   { 

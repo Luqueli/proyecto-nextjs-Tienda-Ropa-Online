@@ -16,10 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-customCream">
-        <Navbar />
-          {children}  
-        <Footer />  
+      <body className="bg-white">
+            <div className="min-h-screen bg-white">
+              <Navbar />
+                {children}  
+              <Footer />
+            </div>
       </body>
     </html>
   );

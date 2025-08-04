@@ -391,8 +391,15 @@ export async function payment(cartItems: CartItem []){
     const result= await preference.create({
         body : {
             items: items,
+            back_urls: {
+                "success": "https://proyecto-nextjs-tienda-ropa-online.vercel.app/",
+                "failure": "https://proyecto-nextjs-tienda-ropa-online.vercel.app/products",
+                "pending": "https://proyecto-nextjs-tienda-ropa-online.vercel.app/"
+            },
+            auto_return : "approved",
         },
-    })
+        }
+    )
     redirect(result.init_point!) 
 }
 
@@ -413,9 +420,10 @@ export async function createPurchase(items : any, payerEmail : string, totalAmou
         const purchaseIdv2 = data.rows[0].purchaseid;
         console.log("Compra creada")
         // Por cada item (producto,cantidad) del carrito, creo un detalle.
+
         await Promise.all(items.map(async (item : any) => {
 
-            const data = sql`
+            const data = await sql`
             INSERT INTO purchaseDetail(purchase_id, productName, quantity, itemPrice)
             VALUES (${purchaseIdv2}, ${item.id}, ${item.quantity}, ${(item.quantity*item.unit_price)})
             `;
@@ -423,7 +431,7 @@ export async function createPurchase(items : any, payerEmail : string, totalAmou
 
     } catch (error){
         return {
-            message: 'Database Error: Failed to Create Category.',
+            message: 'Database Error: Failed to Create Purchase.',
         };
 
     }
