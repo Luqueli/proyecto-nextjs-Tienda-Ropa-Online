@@ -52,7 +52,7 @@ export default async function ProductsCards({
                         </div>
                         <span className="text-lg font-semibold">${product.price}</span>
                     </div>
-                    <button className="btn pb-1 pl-2 bg-customCream rounded"
+                    <button className="btn pb-1 pl-2 bg-white rounded"
                         onClick={
                             () =>handleAddToCart(product)
                         }

@@ -8,7 +8,8 @@ import {
     PurchaseDetail,
  } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
-const ITEMS_PER_PAGE = 6;
+
+const ITEMS_PER_PAGE = 12;
 
 export async function fetchBrands() {
     noStore();
@@ -144,6 +145,20 @@ export async function fetchProductsPages(query: string) {
     throw new Error('Failed to fetch total number of invoices.');
   }
 }
+
+
+export async function fetchTotalProductsNumber() {
+  noStore();
+  try {
+    const count = await sql`SELECT COUNT(*) FROM products`;
+    return Number(count.rows[0].count);
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of products.");
+  }
+}
+
+
 
 export async function fetchProductsImages() {
   noStore();
