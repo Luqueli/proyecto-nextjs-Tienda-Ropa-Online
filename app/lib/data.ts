@@ -9,7 +9,7 @@ import {
  } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 8;
 
 export async function fetchBrands() {
     noStore();
@@ -76,15 +76,41 @@ export async function fetchProductsByBrand(brand:string) {
 }
 
 
-export async function fetchFilteredProducts(
-  query: string,
+ export async function fetchFilteredProducts(
+  query: string, 
   currentPage: number,
+  brand?: string, 
+  category?: string, 
 ) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
-  try {
-    noStore();
-    const products = await sql<Product>`
+  let whereClauses: string[] = [];
+  let params: any[] = [];
+
+  // Búsqueda por query
+  if (query) {
+    whereClauses.push(`(products.name ILIKE $${params.length + 1} OR products.brand_name ILIKE $${params.length + 1} OR products.category_name ILIKE $${params.length + 1})`);
+    params.push(`%${query}%`);
+  }
+
+  // Filtro por marca
+  if (brand) {
+    whereClauses.push(`products.brand_name = $${params.length + 1}`);
+    params.push(brand);
+  }
+
+  // Filtro por categoría
+  if (category) {
+    whereClauses.push(`products.category_name = $${params.length + 1}`);
+    params.push(category);
+  }
+
+  // Construyo el WHERE
+  const where = whereClauses.length > 0 ? `WHERE ${whereClauses.join(" AND ")}` : "";
+
+  // Query final
+  const result = await sql.query(
+    `
       SELECT
         products.id,
         products.name,
@@ -94,18 +120,13 @@ export async function fetchFilteredProducts(
         products.price,
         products.image
       FROM products
-      WHERE
-        products.name ILIKE ${`%${query}%`} OR
-        products.category_name ILIKE ${`%${query}%`} OR
-        products.brand_name ILIKE ${`%${query}%`}
+      ${where}
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
-    `;
+    `,
+    params
+  );
 
-    return products.rows;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch filtered products.');
-  }
+  return result.rows;
 }
 
 
@@ -127,22 +148,54 @@ export async function fetchProductById(id : string) {
   }
 }
 
-export async function fetchProductsPages(query: string) {
+
+
+export async function fetchProductsPages(query?: string, brand?: string, category?: string) {
   noStore();
   try {
-    const count = await sql`SELECT COUNT(*)
-    FROM products
-      WHERE
-        products.name ILIKE ${`%${query}%`} OR
-        products.category_name ILIKE ${`%${query}%`} OR
-        products.brand_name ILIKE ${`%${query}%`}
-  `;
+    let whereClauses: string[] = [];
+    let params: any[] = [];
+
+    // Filtro por texto
+    if (query) {
+      whereClauses.push(
+        `(products.name ILIKE $${params.length + 1} 
+          OR products.brand_name ILIKE $${params.length + 1} 
+          OR products.category_name ILIKE $${params.length + 1})`
+      );
+      params.push(`%${query}%`);
+    }
+
+    // Filtro por marca
+    if (brand) {
+      whereClauses.push(`products.brand_name = $${params.length + 1}`);
+      params.push(brand);
+    }
+
+    // Filtro por categoría
+    if (category) {
+      whereClauses.push(`products.category_name = $${params.length + 1}`);
+      params.push(category);
+    }
+
+    const where = whereClauses.length > 0 ? `WHERE ${whereClauses.join(" AND ")}` : "";
+
+    // Query count
+    const count = await sql.query(
+      `
+        SELECT COUNT(*) 
+        FROM products
+        ${where}
+      `,
+      params
+    );
 
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    console.log("Devolviendo totalPages:", totalPages);
     return totalPages;
   } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch total number of invoices.');
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of products.");
   }
 }
 

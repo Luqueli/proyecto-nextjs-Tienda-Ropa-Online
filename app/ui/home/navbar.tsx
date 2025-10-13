@@ -2,6 +2,7 @@ import { fetchBrands, fetchCategories } from '@/app/lib/data'
 import Link  from 'next/link'
 import DropdownCart from '@/app/ui/cart/dropdownCart';
 import Dropdowns from '@/app/ui/home/dropdowns';
+import Search from '@/app/ui/home/search';
 
 export default async function Navbar(){
 
@@ -19,9 +20,13 @@ export default async function Navbar(){
             <span className="font-bold text-xl">TNDA</span>
           </Link>
           <Dropdowns brands={brands} categories={categories} />
-          <DropdownCart/>
+
+          <div className="flex items-center space-x-2">
+            <Search/>
+            <DropdownCart/>            
+          </div>
         </div>
       </header>
     )
-}   
+}
 

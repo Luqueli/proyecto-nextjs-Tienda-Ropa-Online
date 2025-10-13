@@ -7,25 +7,30 @@ export default async function ProductsPage({
 }: {
   searchParams?: {
     query?: string;
+    brand?: string;
+    category?: string;
     page?: string;
   };
 }) {
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
+    const query = searchParams?.query || "";
+    const brand = searchParams?.brand || "";
+    const category = searchParams?.category || "";
 
-  const totalPages = await fetchProductsPages(query);
-  const products = await fetchFilteredProducts(query, currentPage);
-  const totalProducts = await fetchTotalProductsNumber();
-  const categories = await fetchCategories();
-  const brands = await fetchBrands();
-  return (
-    <ProductsClient
-      products={products}
-      totalPages={totalPages}
-      totalProductsNumber={totalProducts}
-      searchParams={searchParams}
-      categories={categories}
-      brands={brands}
-    />
+    const currentPage = Number(searchParams?.page) || 1;
+
+    const totalPages = await fetchProductsPages(query,brand,category);
+    const products = await fetchFilteredProducts(query,currentPage,brand,category);
+    const totalProducts = await fetchTotalProductsNumber();
+    const categories = await fetchCategories();
+    const brands = await fetchBrands();
+    return (
+      <ProductsClient
+        products={products}
+        totalPages={totalPages}
+        totalProductsNumber={totalProducts}
+        searchParams={searchParams}
+        categories={categories}
+        brands={brands}
+      />
   );
 }

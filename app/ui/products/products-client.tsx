@@ -33,7 +33,6 @@ export default function ProductsClient({
   };
 }) {
 
-  console.log(categories, brands);
   const currentPage = Number(searchParams?.page) || 1;
 
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
@@ -63,10 +62,8 @@ export default function ProductsClient({
 
   return (
     <>
-      {/* Filters */}
       <Filters categories={categories} brands={brands}/>
     
-      {/* Products Grid */}
       <div className="container mx-auto px-4 md:px-6 py-8">
         <div className="mb-6">
           <p className="text-gray-600 text-lg">

@@ -1,110 +1,139 @@
-'use client'
-import React, { useState, useRef, useEffect } from 'react';
-import { payment } from '@/app/lib/actions';
-import { CartItem } from '@/app/lib/definitions';
+"use client"
 
+import { useState, useRef, useEffect } from "react"
+import { ShoppingCart, X } from "lucide-react"
+import { payment } from "@/app/lib/actions"
+import type { CartItem } from "@/app/lib/definitions"
+import { Button } from "@/app/ui/button"
 
 export default function DropdownCart() {
-
-  const [cartItems, setCartItems] = useState<CartItem []>([]);
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+    setIsDropdownOpen(!isDropdownOpen)
+  }
 
   // Actualizar el carrito en el primer renderizado y observar cambios en localStorage.
   useEffect(() => {
     const handleStorageChange = () => {
-      const savedCartItems = localStorage.getItem('cartItems');
-      setCartItems(savedCartItems ? JSON.parse(savedCartItems) : []);
-    
-    };
+      const savedCartItems = localStorage.getItem("cartItems")
+      setCartItems(savedCartItems ? JSON.parse(savedCartItems) : [])
+    }
 
     handleStorageChange()
-    
-    window.addEventListener('storage', handleStorageChange);
+
+    window.addEventListener("storage", handleStorageChange)
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
+      window.removeEventListener("storage", handleStorageChange)
+    }
+  }, [])
+
+  // Cerrar dropdown al hacer click fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   const removePair = (id: string) => {
+    const indexOfItem = cartItems.findIndex((item) => item.id === id)
 
-    const indexOfItem = cartItems!.findIndex(item => item.id === id);
-
-    if (cartItems![indexOfItem].quantity > 1) {
-
-      const newCartItems = [...cartItems!];
-      newCartItems[indexOfItem].quantity -= 1;
-      setCartItems(newCartItems);
-      localStorage.setItem('cartItems', JSON.stringify(newCartItems));
-    
+    if (cartItems[indexOfItem].quantity > 1) {
+      const newCartItems = [...cartItems]
+      newCartItems[indexOfItem].quantity -= 1
+      setCartItems(newCartItems)
+      localStorage.setItem("cartItems", JSON.stringify(newCartItems))
     } else {
-      
-      const newCartItems = cartItems!.filter(item => item.id !== id);
-      setCartItems(newCartItems);
-      localStorage.setItem('cartItems', JSON.stringify(newCartItems));
-      
+      const newCartItems = cartItems.filter((item) => item.id !== id)
+      setCartItems(newCartItems)
+      localStorage.setItem("cartItems", JSON.stringify(newCartItems))
     }
-  };
+  }
 
-  const totalAmount = cartItems.reduce((total, item) => total + (item.quantity * item.unitCost), 0);
+  const totalAmount = cartItems.reduce((total, item) => total + item.quantity * item.unitCost, 0)
 
   const handleSubmit = () => {
-    if (cartItems!.length!=0){
-      payment(cartItems!);  
+    if (cartItems.length !== 0) {
+      payment(cartItems)
     }
   }
 
   return (
-    <div className="relative">
-      <button onClick={toggleDropdown} className="btn btn-ghost btn-circle">
-        <div className="indicator">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          <span className="badge badge-sm indicator-item">{cartItems.length}</span>
-        </div>
-      </button>
+    <div className="relative" ref={dropdownRef}>
+      <Button variant="ghost" size="icon" onClick={toggleDropdown} className="relative">
+        <ShoppingCart className="h-5 w-5" />
+        <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-black text-white text-xs flex items-center justify-center">
+          {cartItems.length}
+        </span>
+      </Button>
+
       {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-Cream border border-gray-200 shadow-lg rounded-lg overflow-hidden z-10">
-          <div className="p-4 bg-customCream text-black font-semibold">Carrito</div>
+        <div className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden z-50">
+          <div className="p-4 bg-gray-50 text-black font-semibold border-b">
+            <div className="flex items-center justify-between">
+              <span>Carrito</span>
+              <Button variant="ghost" size="icon" onClick={() => setIsDropdownOpen(false)} className="h-6 w-6 p-0">
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
           <div className="p-4 max-h-60 overflow-y-auto bg-white">
-            {cartItems.map(item => (
-              <div key={item.id} className="flex justify-between items-center my-2">
-                <div className="flex flex-col">
-                  <span className="font-semibold">{item.brandName} {item.productName}</span>
-                  <span className="text-sm">Pares: {item.quantity}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="font-semibold">${(item.quantity * item.unitCost).toFixed(2)}</span>
-                  <button onClick={() => removePair(item.id)} className="ml-2 text-red-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M8.707 10l3.647-3.646a.5.5 0 00-.708-.708L8 9.293 4.354 5.646a.5.5 0 00-.708.708L7.293 10l-3.647 3.646a.5.5 0 00.708.708L8 10.707l3.646 3.647a.5.5 0 00.708-.708L8.707 10z" clipRule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
+            {cartItems.length === 0 ? (
+              <div className="text-center text-gray-500 py-4">
+                <ShoppingCart className="h-8 w-8 mx-auto mb-2 text-gray-300" />
+                <p>Tu carrito está vacío</p>
               </div>
-            ))}
+            ) : (
+              cartItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0"
+                >
+                  <div className="flex flex-col flex-1">
+                    <span className="font-semibold text-sm">
+                      {item.brandName} {item.productName}
+                    </span>
+                    <span className="text-xs text-gray-600">Cantidad: {item.quantity}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-sm">€{(item.quantity * item.unitCost).toFixed(2)}</span>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removePair(item.id)}
+                      className="h-6 w-6 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
-          <div className="p-4 border-t bg-customCream border-gray-200">
-            <div className="flex justify-between items-center">
-              <span className="font-semibold">Total</span>
-              <span className="font-semibold">${totalAmount.toFixed(2)}</span>
-            </div>
-            <div className="mt-4 flex justify-left">
-              <button className="btn text-white bg-gray-900 hover:bg-gray-500"
-                    onClick={handleSubmit}
-              >
+
+          {cartItems.length > 0 && (
+            <div className="p-4 border-t bg-gray-50 border-gray-200">
+              <div className="flex justify-between items-center mb-4">
+                <span className="font-semibold">Total</span>
+                <span className="font-semibold text-lg">€{totalAmount.toFixed(2)}</span>
+              </div>
+              <Button onClick={handleSubmit} className="w-full bg-black hover:bg-gray-800 text-white">
                 Comprar
-              </button>
+              </Button>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>
-  );
-};
+  )
+}

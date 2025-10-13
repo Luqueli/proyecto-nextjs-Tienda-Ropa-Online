@@ -7,7 +7,6 @@ type Props = {
 }
 
 export default function ShopByCategories({ categories }: Props) {
-  console.log(categories);
   return (
     <section className="bg-gray-50 py-20">
         <div className="container mx-auto px-4 md:px-6">

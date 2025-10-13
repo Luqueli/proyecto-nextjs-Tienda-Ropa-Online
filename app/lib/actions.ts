@@ -318,7 +318,6 @@ export async function updateCategory(id:string, prevState : CategoryState,formDa
 
 export async function deleteCategory(id: string) {
     try{
-        console.log(id)
         await sql`DELETE FROM categories WHERE id = ${id}`;
         revalidatePath('/admin/categories');
         return { message: 'Deleted category.' };

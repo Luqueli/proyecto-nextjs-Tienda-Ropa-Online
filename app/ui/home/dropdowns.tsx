@@ -33,7 +33,7 @@ import { useState, useEffect } from "react"
               </Button>
             </Link>
 
-            <div className="relative">
+            <div className="relative dropdown-container">
               <Button
                 variant="ghost"
                 className="font-medium"
@@ -48,7 +48,7 @@ import { useState, useEffect } from "react"
                     {brands.map((brand) => (
                       <Link
                         key={brand.name}
-                        href={`/products?brand=${brand.name.toLowerCase()}`}
+                        href={`/products?query=${brand.name.toLowerCase()}`}
                         className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                         onClick={() => setOpenMenu(null)}
                       >
@@ -60,7 +60,7 @@ import { useState, useEffect } from "react"
               )}
             </div>
 
-            <div className="relative">
+            <div className="relative dropdown-container">
               <Button
                 variant="ghost"
                 className="font-medium"
@@ -75,7 +75,7 @@ import { useState, useEffect } from "react"
                     {categories.map((category) => (
                       <Link
                         key={category.name}
-                        href={`/products?sport=${category.name.toLowerCase()}`}
+                        href={`/products?query=${category.name.toLowerCase()}`}
                         className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                         onClick={() => setOpenMenu(null)}
                       >
