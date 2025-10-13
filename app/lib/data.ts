@@ -191,7 +191,6 @@ export async function fetchProductsPages(query?: string, brand?: string, categor
     );
 
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
-    console.log("Devolviendo totalPages:", totalPages);
     return totalPages;
   } catch (error) {
     console.error("Database Error:", error);
